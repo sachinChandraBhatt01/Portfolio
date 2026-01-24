@@ -3,7 +3,7 @@ import EditorLayout from "./components/EditorLayout.jsx";
 import Home from "./Pages/Home.jsx";
 import About from "./Pages/About.jsx";
 import Projects from "./Pages/Projects.jsx";
-import Contact from "./pages/Contact.jsx";
+import Contact from "./Pages/Contact.jsx";
 
 export default function App() {
   const [activePage, setActivePage] = useState("home");
