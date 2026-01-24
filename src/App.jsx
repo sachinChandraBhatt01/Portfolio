@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import EditorLayout from "./components/EditorLayout.jsx";
-import Home from "./pages/Home.jsx";
-import About from "./pages/About.jsx";
-import Projects from "./pages/Projects.jsx";
+import Home from "./Pages/Home.jsx";
+import About from "./Pages/About.jsx";
+import Projects from "./Pages/Projects.jsx";
 import Contact from "./pages/Contact.jsx";
 
 export default function App() {
