@@ -1,8 +1,8 @@
-import Sidebar from "./Sidebar";
-import Tabs from "./Tabs";
-import StatusBar from "./StatusBar";
-import Terminal from "./Terminal";
-import CommandPalette from "./CommandPalette";
+import Sidebar from "./Sidebar.jsx";
+import Tabs from "./Tabs.jsx";
+import StatusBar from "./Statusbar.jsx";
+import Terminal from "./Terminal.jsx";
+import CommandPalette from "./CommandPalette.jsx";
 import { VscFiles, VscFileCode, VscArrowLeft } from "react-icons/vsc";
 
 export default function EditorLayout({
