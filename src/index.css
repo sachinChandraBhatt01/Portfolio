@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Caveat";
+  src: url("../assets/fonts/Caveat/static/Caveat-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+}
+
+
+body {
+  background-color: var(--paper-bg);
+  color: var(--ink-main);
+  font-family: "Caveat", cursive;
+}
+
+
+html, body {
+  height: 100%;
+  /* overflow: hidden; */
+}
+
+/* THEME */
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system;
+  background: var(--bg);
+}
