@@ -10,11 +10,11 @@ export default function Contact({ theme }) {
   const [messageSent, setMessageSent] = useState(false);
 
   const contactDetails = [
-    { type: "Email", value: "sachin@example.com", icon: <FaEnvelope /> },
-    { type: "Phone", value: "+123 456 7890", icon: <FaPhoneAlt /> },
+    { type: "Email", value: "sachin51565@gmail.com", icon: <FaEnvelope /> },
+    { type: "Phone", value: "+91 8178464397", icon: <FaPhoneAlt /> },
     { type: "Location", value: "New Delhi, India", icon: <FaMapMarkerAlt /> },
     { type: "LinkedIn", value: "linkedin.com/in/sachinchandra", icon: <FaLinkedin /> },
-    { type: "GitHub", value: "github.com/sachinchandra", icon: <FaGithub /> },
+    { type: "GitHub", value: "github.com/sachinChandraBhatt01", icon: <FaGithub /> },
   ];
 
   const sendEmail = (e) => {

@@ -13,8 +13,8 @@ const PortfolioProject = {
   ],
 
   links: {
-    github: { url: "https://github.com/yourusername/portfolio", icon: <FaGithub /> },
-    live: { url: "https://yourportfolio.render.com", icon: <FaExternalLinkAlt /> },
+    github: { url: "https://github.com/sachinChandraBhatt01/Portfolio", icon: <FaGithub /> },
+    live: { url: "https://sachinchandrabhatt.dev", icon: <FaExternalLinkAlt /> },
   },
 
   details: {

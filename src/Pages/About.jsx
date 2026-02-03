@@ -7,14 +7,14 @@ export default function About({ theme }) {
 
   const education = [
     {
-      degree: "B.Tech in Computer Science",
-      institution: "XYZ University",
-      year: "2019 – 2023",
+      degree: "BCA",
+      institution: "Amity University",
+      year: "2024 – 2027",
     },
     {
-      degree: "High School",
-      institution: "ABC School",
-      year: "2017 – 2019",
+      degree: "Diploma in Information Technology",
+      institution: "Modi Training Institute",
+      year: "2023 – 2024",
     },
   ];
 
@@ -33,7 +33,6 @@ export default function About({ theme }) {
   const certificates = [
     { name: "Fullstack Web Development", link: "#" },
     { name: "Advanced React", link: "#" },
-    { name: "Node.js Backend Development", link: "#" },
   ];
 
   const cardStyle = `

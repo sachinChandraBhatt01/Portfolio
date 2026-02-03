@@ -32,8 +32,8 @@ const VideoTubeProject = {
   ],
 
   links: {
-    github: { url: "https://github.com/yourusername/youtube-clone", icon: <FaGithub /> },
-    live: { url: "https://youtube-clone.render.com", icon: <FaExternalLinkAlt /> },
+    github: { url: "https://github.com/sachinChandraBhatt01/videoTube", icon: <FaGithub /> },
+    live: { url: "https://videotube.live", icon: <FaExternalLinkAlt /> },
   },
 
   details: {
