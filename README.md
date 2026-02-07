@@ -1,16 +1,78 @@
-# React + Vite
+# 💻 VS Code Style Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive **VS Code-inspired personal portfolio website** with file-explorer navigation, command-style search, smooth animations, and responsive design. Built for recruiter showcase and personal branding.
 
-Currently, two official plugins are available:
+Designed to deliver a developer-themed experience instead of a traditional portfolio layout.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🔗 Live Demo: <YOUR_LIVE_LINK>  
+🔗 GitHub Repo: <YOUR_GITHUB_LINK>
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📌 Project Overview
+
+This portfolio mimics the look and feel of **Visual Studio Code**, featuring sidebar file navigation, tabbed sections, command-style search, and theme switching. It provides a modern and engaging way for recruiters and visitors to explore profile details, projects, and contact information.
+
+All content is rendered through reusable React components with smooth motion effects and responsive layout.
+
+---
+
+## ✨ Core Features
+
+🗂️ VS Code-style sidebar navigation  
+🔎 Command-style search for sections  
+📄 Tab-based content viewing  
+🌙 Dark / Light theme toggle  
+🎞️ Smooth animations and transitions  
+📱 Fully responsive layout  
+⚡ Fast and interactive UI  
+♻️ Reusable component structure  
+
+---
+
+## 🧭 Sections Included
+
+- Home
+- About Me
+- Skills
+- Projects
+- Experience
+- Contact
+
+Each section opens like a file tab, similar to a code editor workflow.
+
+---
+
+## 🎨 UI & UX Highlights
+
+- Developer-themed interface
+- File explorer style navigation
+- Animated panel transitions
+- Clean typography and spacing
+- Mobile-friendly responsive behavior
+- Smooth theme switching across the app
+
+---
+
+## 🛠️ Tech Stack
+
+### 🎨 Frontend
+- ⚛️ React
+- 🎨 TailwindCSS
+- 🎞️ Framer Motion (animations)
+- 🧭 React Router (if used)
+- 🧠 useState + props for state handling
+
+---
+
+## 🏗️ Architecture
+
+- Component-based design
+- Reusable UI elements
+- Props-driven data flow
+- Theme state management
+- Animation wrappers for transitions
