@@ -8,8 +8,7 @@ Designed to deliver a developer-themed experience instead of a traditional portf
 
 ## 🚀 Live Demo
 
-🔗 Live Demo: <YOUR_LIVE_LINK>  
-🔗 GitHub Repo: <YOUR_GITHUB_LINK>
+🔗 Live Demo: [Portfolio](https://sachinchandrabhatt.dev)  
 
 ---
 
