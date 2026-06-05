@@ -1,1012 +1,372 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <meta name="description" content="Sachin — Social Media Manager, Thumbnail Designer & Video Editor from India."/>
-  <title>Sachin — Social Media · Thumbnails · Video</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #faf8f4;
-      --bg2: #f2ede4;
-      --surface: #ffffff;
-      --surface2: #f7f3ec;
-      --border: rgba(0,0,0,0.07);
-      --border2: rgba(0,0,0,0.14);
-      --text: #1a1612;
-      --muted: rgba(26,22,18,0.45);
-      --muted2: rgba(26,22,18,0.65);
-      --ink: #1a1612;
-      --a1: #e8431a;
-      --a2: #f5a623;
-      --a3: #1a4fe8;
-      --a4: #12b886;
-      --a5: #9b51e0;
-      --r: 18px;
-      --r2: 26px;
-      --ff: 'Syne', sans-serif;
-      --fs: 'Fraunces', serif;
-      --fm: 'JetBrains Mono', monospace;
-    }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body {
-      font-family: var(--ff);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 250px;
-      opacity: 0.018;
-    }
-
-    /* ── NAV ── */
-    .site-nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 500;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 40px;
-      background: rgba(250,248,244,0.88);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: var(--ff);
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      cursor: pointer;
-    }
-    .nav-logo span { color: var(--a1); }
-    .nav-pills {
-      display: flex;
-      gap: 2px;
-      background: rgba(0,0,0,0.05);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 4px;
-    }
-    .nav-btn {
-      padding: 8px 22px;
-      border-radius: 999px;
-      border: none;
-      background: transparent;
-      color: var(--muted2);
-      font-family: var(--ff);
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.22s;
-    }
-    .nav-btn:hover { color: var(--text); background: rgba(0,0,0,0.05); }
-    .nav-btn.active { background: var(--ink); color: #fff; }
-    .nav-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--fm);
-      font-size: 11px;
-      color: var(--muted);
-    }
-    .status-dot {
-      width: 7px; height: 7px;
-      background: var(--a4);
-      border-radius: 50%;
-      animation: blink 2s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
-
-    /* ── WIPE ── */
-    #wipe {
-      position: fixed; inset: 0; z-index: 6000;
-      pointer-events: none;
-      background: var(--a1);
-      clip-path: inset(0 100% 0 0);
-    }
-    #wipe.in { pointer-events: all; clip-path: inset(0 0% 0 0); transition: clip-path 0.48s cubic-bezier(0.86,0,0.07,1); }
-    #wipe.out { clip-path: inset(0 0 0 100%); transition: clip-path 0.44s cubic-bezier(0.86,0,0.07,1); }
-
-    /* ── PAGES ── */
-    .page { display: none; position: relative; z-index: 1; }
-    .page.active { display: block; }
-
-    /* ── LAYOUT ── */
-    main { max-width: 1400px; margin: 0 auto; padding: 96px 28px 100px; }
-
-    /* ── BENTO ── */
-    .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 11px; }
-    .b4 { grid-column: span 4; }
-    .b5 { grid-column: span 5; }
-    .b6 { grid-column: span 6; }
-    .b7 { grid-column: span 7; }
-    .b8 { grid-column: span 8; }
-    .b3 { grid-column: span 3; }
-    .b12 { grid-column: span 12; }
-
-    /* ── BASE CARD ── */
-    .card {
-      background: var(--surface);
-      border-radius: var(--r2);
-      border: 1px solid var(--border);
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s cubic-bezier(0.22,0.68,0,1.2), box-shadow 0.3s, border-color 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px) scale(1.006);
-      box-shadow: 0 20px 56px rgba(0,0,0,0.09), 0 4px 16px rgba(0,0,0,0.04);
-      border-color: var(--border2);
-    }
-    .card-enter { animation: cIn 0.55s cubic-bezier(0.22,0.68,0,1.2) both; }
-    @keyframes cIn { from{opacity:0;transform:translateY(22px) scale(0.97)} to{opacity:1;transform:none} }
-    .card:nth-child(1){animation-delay:.04s}.card:nth-child(2){animation-delay:.09s}
-    .card:nth-child(3){animation-delay:.14s}.card:nth-child(4){animation-delay:.19s}
-    .card:nth-child(5){animation-delay:.24s}.card:nth-child(6){animation-delay:.29s}
-    .card:nth-child(7){animation-delay:.34s}.card:nth-child(8){animation-delay:.39s}
-    .card:nth-child(9){animation-delay:.44s}.card:nth-child(10){animation-delay:.49s}
-
-    /* ── SHARED ── */
-    .lbl {
-      font-family: var(--fm);
-      font-size: 9.5px;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    /* ══ CARD: HERO ══ */
-    .card-hero {
-      background: var(--ink);
-      border-color: transparent;
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card-hero .lbl { color: rgba(255,255,255,0.32); }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(232,67,26,0.18);
-      border: 1px solid rgba(232,67,26,0.35);
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #ff7a5c;
-      font-family: var(--ff);
-      margin-bottom: 18px;
-      width: fit-content;
-    }
-    .hero-name {
-      font-family: var(--fs);
-      font-size: clamp(46px, 5.5vw, 72px);
-      font-style: italic;
-      font-weight: 300;
-      line-height: 0.94;
-      letter-spacing: -0.03em;
-      color: #fff;
-      margin-bottom: 16px;
-    }
-    .hero-name strong { font-style: normal; font-weight: 400; color: var(--a1); }
-    .hero-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 400px; }
-    .hero-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; }
-    .chip {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      padding: 5px 13px;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.65);
-      transition: all 0.2s;
-    }
-    .chip:hover { background: rgba(255,255,255,0.14); color: #fff; }
-    .chip .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--a1);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      padding: 13px 26px;
-      font-size: 13.5px;
-      font-weight: 700;
-      font-family: var(--ff);
-      cursor: pointer;
-      transition: all 0.25s;
-      margin-top: 24px;
-      width: fit-content;
-    }
-    .hero-cta:hover { background: #c73210; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(232,67,26,0.35); }
-
-    /* ══ CARD: STAT ══ */
-    .card-stat {
-      background: var(--a1);
-      border-color: transparent;
-    }
-    .stat-big {
-      font-family: var(--fs);
-      font-size: 68px;
-      font-style: italic;
-      font-weight: 300;
-      line-height: 0.88;
-      letter-spacing: -0.04em;
-      color: #fff;
-    }
-    .stat-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.65); margin-top: 10px; }
-    .stat-mono { font-family: var(--fm); font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 5px; }
-
-    /* ══ CARD: THUMBNAILS ══ */
-    .card-thumb { background: var(--surface2); }
-    .thumb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
-    .thumb-item {
-      border-radius: 12px;
-      aspect-ratio: 16/9;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.22s;
-    }
-    .thumb-item:hover { transform: scale(1.05); }
-    .ti-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 26px; }
-    .ti-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent 55%);
-      display: flex; align-items: flex-end; padding: 8px;
-    }
-    .ti-tag { font-size: 9px; font-weight: 700; font-family: var(--fm); color: rgba(255,255,255,0.8); letter-spacing: 0.1em; text-transform: uppercase; }
-    .t1 { background: linear-gradient(135deg, #e8431a, #f5a623); }
-    .t2 { background: linear-gradient(135deg, #1a1612, #1a4fe8); }
-    .t3 { background: linear-gradient(135deg, #f5a623, #f5d723); }
-    .t4 { background: linear-gradient(135deg, #9b51e0, #1a4fe8); }
-
-    /* ══ CARD: SERVICES ══ */
-    .card-services { background: var(--surface2); }
-    .svc-list { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
-    .svc {
-      display: flex; align-items: flex-start; gap: 13px;
-      padding: 14px;
-      background: var(--surface);
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      transition: all 0.22s;
-      cursor: default;
-    }
-    .svc:hover { border-color: var(--border2); transform: translateX(5px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-    .svc-ico { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .svc-name { font-size: 13.5px; font-weight: 700; margin-bottom: 2px; }
-    .svc-desc { font-size: 11.5px; color: var(--muted2); line-height: 1.5; }
-
-    /* ══ CARD: VIDEO REEL ══ */
-    .card-video { background: var(--ink); border-color: transparent; }
-    .card-video .lbl { color: rgba(255,255,255,0.3); }
-    .card-video .chead { color: rgba(255,255,255,0.9); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .reel-row { display: flex; gap: 8px; margin: 14px 0; }
-    .reel-item {
-      flex-shrink: 0;
-      border-radius: 12px;
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.22s;
-    }
-    .reel-item:hover { transform: scale(1.04); }
-    .reel-item:first-child { width: 112px; height: 200px; }
-    .reel-item:not(:first-child) { width: 100px; height: 200px; opacity: 0.62; }
-    .reel-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
-    .reel-play {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 34px; height: 34px;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(8px);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
-    .reel-item:hover .reel-play { background: var(--a1); }
-    .reel-note { font-size: 11.5px; color: rgba(255,255,255,0.4); }
-
-    /* ══ CARD: ANALYTICS ══ */
-    .card-analytics { background: var(--surface2); }
-    .bar-chart { display: flex; align-items: flex-end; gap: 5px; height: 72px; margin: 14px 0 8px; }
-    .bc { flex: 1; border-radius: 5px 5px 0 0; transition: all 0.3s; cursor: default; transform-origin: bottom; }
-    .bc:hover { filter: brightness(1.12); }
-    .an-meta { display: flex; justify-content: space-between; align-items: flex-end; }
-    .an-val { font-family: var(--fs); font-size: 38px; font-style: italic; color: var(--text); line-height: 1; }
-    .an-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(18,184,134,0.12);
-      border: 1px solid rgba(18,184,134,0.2);
-      color: var(--a4);
-      font-size: 10px; font-weight: 700; font-family: var(--fm);
-      padding: 4px 10px; border-radius: 999px;
-    }
-
-    /* ══ CARD: TOOLS ══ */
-    .card-tools { background: var(--surface); }
-    .tools-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 14px; }
-    .tool {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 10px;
-      text-align: center;
-      transition: all 0.2s;
-      cursor: default;
-    }
-    .tool:hover { background: var(--ink); border-color: var(--ink); transform: translateY(-3px); }
-    .tool:hover .tool-name { color: rgba(255,255,255,0.75); }
-    .tool-icon { font-size: 22px; margin-bottom: 5px; display: block; }
-    .tool-name { font-size: 10.5px; font-weight: 700; font-family: var(--fm); color: var(--muted2); transition: color 0.2s; }
-
-    /* ══ CARD: QUOTE ══ */
-    .card-quote {
-      background: linear-gradient(150deg, #fff9f0, #fef3e2);
-      border-color: rgba(245,166,35,0.25);
-    }
-    .q-mark {
-      font-family: var(--fs);
-      font-size: 90px;
-      line-height: 0.6;
-      color: var(--a2);
-      opacity: 0.3;
-    }
-    .q-text {
-      font-family: var(--fs);
-      font-style: italic;
-      font-size: 21px;
-      line-height: 1.52;
-      color: var(--text);
-      margin: 8px 0 10px;
-    }
-    .q-attr { font-family: var(--fm); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-
-    /* ══ CARD: PLATFORMS ══ */
-    .card-plats { background: var(--surface2); }
-    .plat-list { display: flex; flex-direction: column; gap: 7px; margin-top: 14px; }
-    .plat {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 14px;
-      background: var(--surface);
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      transition: all 0.2s; cursor: default;
-    }
-    .plat:hover { border-color: var(--border2); transform: translateX(4px); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-    .plat-ico { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-    .plat-name { font-size: 12.5px; font-weight: 700; flex: 1; }
-    .plat-badge {
-      font-size: 9.5px; font-family: var(--fm); font-weight: 700;
-      padding: 3px 9px; border-radius: 999px;
-    }
-
-    /* ══ CARD: WORKFLOW ══ */
-    .card-flow { background: var(--surface); }
-    .flow-list { display: flex; flex-direction: column; gap: 0; margin-top: 14px; }
-    .flow-step {
-      display: flex; gap: 14px;
-      padding-bottom: 16px; position: relative;
-    }
-    .flow-step::after {
-      content: '';
-      position: absolute;
-      left: 17px; top: 38px;
-      width: 1.5px; height: calc(100% - 36px);
-      background: var(--border);
-    }
-    .flow-step:last-child::after { display: none; }
-    .flow-step:last-child { padding-bottom: 0; }
-    .fnum {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 800; font-family: var(--fm);
-      flex-shrink: 0; z-index: 1;
-    }
-    .fhead { font-size: 13.5px; font-weight: 700; margin-bottom: 2px; }
-    .fdesc { font-size: 11.5px; color: var(--muted2); line-height: 1.5; }
-
-    /* ══ CARD: CTA ══ */
-    .card-cta {
-      background: var(--a3);
-      border-color: transparent;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 20px; flex-wrap: wrap;
-    }
-    .cta-big { font-family: var(--fs); font-size: 30px; font-style: italic; color: #fff; line-height: 1.2; }
-    .cta-sub { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
-    .cta-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: #fff; color: var(--a3);
-      border: none; border-radius: 999px;
-      padding: 14px 28px;
-      font-size: 14px; font-weight: 800; font-family: var(--ff);
-      cursor: pointer; transition: all 0.25s; white-space: nowrap;
-    }
-    .cta-btn:hover { background: rgba(255,255,255,0.88); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-
-    /* ══ CARD: BLANK ══ */
-    .card-blank {
-      background: transparent;
-      border: 2px dashed var(--border2);
-      border-radius: var(--r2);
-      padding: 28px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; gap: 10px; min-height: 180px;
-      transition: all 0.25s;
-    }
-    .card-blank:hover { border-color: var(--a1); background: rgba(232,67,26,0.03); }
-    .blank-icon { font-size: 30px; opacity: 0.35; transition: all 0.25s; }
-    .card-blank:hover .blank-icon { opacity: 0.9; transform: scale(1.15); }
-    .blank-title { font-size: 13px; font-weight: 700; color: var(--muted); transition: color 0.25s; }
-    .blank-sub { font-size: 11.5px; color: var(--border2); line-height: 1.5; transition: color 0.25s; }
-    .card-blank:hover .blank-title { color: var(--a1); }
-    .card-blank:hover .blank-sub { color: rgba(232,67,26,0.45); }
-
-    /* ══ ABOUT PAGE ══ */
-    .about-wrap { max-width: 1400px; margin: 0 auto; padding: 96px 28px 100px; }
-    .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 11px; }
-    .card-story { min-height: 500px; }
-    .story-h1 {
-      font-family: var(--fs);
-      font-size: clamp(38px, 5vw, 58px);
-      font-style: italic; font-weight: 300;
-      line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 26px;
-    }
-    .story-body { font-size: 15px; line-height: 1.9; color: var(--muted2); }
-    .story-body p { margin-bottom: 18px; }
-    .story-body strong { color: var(--text); font-weight: 700; }
-    .story-body em { color: var(--a1); font-style: italic; font-family: var(--fs); font-size: 17px; }
-    .about-right { display: flex; flex-direction: column; gap: 11px; }
-    .card-av {
-      min-height: 260px;
-      background: var(--ink);
-      display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px;
-    }
-    .av-em { font-size: 72px; animation: float 4s ease-in-out infinite; }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-    .av-cap { font-size: 11px; color: rgba(255,255,255,0.3); font-family: var(--fm); }
-    .card-facts { padding: 22px; }
-    .fact { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-    .fact:last-child { border: none; }
-    .fact-ico { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    .fact-txt { font-size: 13px; font-weight: 600; }
-    .card-timeline { grid-column: span 2; }
-    .tl { display: flex; gap: 0; }
-    .tl-item { flex: 1; padding: 20px; position: relative; border-right: 1px solid var(--border); }
-    .tl-item:last-child { border-right: none; }
-    .tl-dot { width: 10px; height: 10px; border-radius: 50%; margin-bottom: 12px; }
-    .tl-year { font-family: var(--fm); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 7px; text-transform: uppercase; }
-    .tl-head { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
-    .tl-desc { font-size: 12px; color: var(--muted2); line-height: 1.6; }
-
-    /* ══ CONTACT PAGE ══ */
-    .contact-wrap { max-width: 1400px; margin: 0 auto; padding: 96px 28px 100px; }
-    .contact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 11px; }
-    .social-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r2); padding: 26px;
-      min-height: 210px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      text-decoration: none; color: inherit;
-      transition: all 0.28s cubic-bezier(0.22,0.68,0,1.2);
-      cursor: pointer;
-    }
-    .social-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 22px 56px rgba(0,0,0,0.1); border-color: var(--border2); }
-    .sc-top { display: flex; justify-content: space-between; align-items: center; }
-    .sc-lbl { font-family: var(--fm); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-    .sc-arr { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--surface2); font-size: 16px; transition: all 0.2s; }
-    .social-card:hover .sc-arr { background: var(--ink); color: #fff; }
-    .sc-bot { display: flex; align-items: center; gap: 12px; }
-    .sc-ico { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-    .sc-name { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
-    .form-card { grid-column: span 3; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r2); padding: 40px 44px; }
-    .form-h { font-family: var(--fs); font-size: 32px; font-style: italic; color: var(--text); margin-bottom: 24px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    .fg { display: flex; flex-direction: column; gap: 7px; }
-    .fg.full { grid-column: span 2; }
-    label { font-family: var(--fm); font-size: 9.5px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
-    input, textarea, select {
-      background: var(--surface2);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 13px 16px;
-      font-family: var(--ff);
-      font-size: 14px;
-      color: var(--text);
-      outline: none;
-      resize: none;
-      width: 100%;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      appearance: none;
-    }
-    input::placeholder, textarea::placeholder { color: var(--muted); }
-    input:focus, textarea:focus, select:focus {
-      border-color: var(--a1);
-      box-shadow: 0 0 0 3px rgba(232,67,26,0.08);
-    }
-    .submit-btn {
-      background: var(--ink); color: #fff; border: none;
-      border-radius: 12px; padding: 14px 30px;
-      font-size: 14px; font-weight: 700; font-family: var(--ff);
-      cursor: pointer; transition: all 0.25s;
-      display: inline-flex; align-items: center; gap: 8px; margin-top: 6px;
-    }
-    .submit-btn:hover { background: var(--a1); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(232,67,26,0.28); }
-
-    /* ══ FOOTER ══ */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 20px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
-      background: var(--bg);
-      position: relative; z-index: 1;
-    }
-    .ft-l { font-family: var(--fm); font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 10px; }
-    .ft-m { font-size: 12px; color: var(--muted); }
-    .ft-r { display: flex; gap: 18px; }
-    .ft-r a { font-size: 12px; color: var(--muted); text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 5px; transition: color 0.2s; }
-    .ft-r a:hover { color: var(--a1); }
-
-    /* ══ REVEAL ══ */
-    .rv { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
-    .rv.vis { opacity: 1; transform: none; }
-
-    /* ══ RESPONSIVE ══ */
-    @media (max-width: 1100px) {
-      .bento { grid-template-columns: repeat(6,1fr); }
-      .b3,.b4,.b5,.b6,.b7,.b8 { grid-column: span 3; }
-      .b12 { grid-column: span 6; }
-      .about-grid { grid-template-columns: 1fr; }
-      .card-timeline { grid-column: span 1; }
-      .tl { flex-direction: column; }
-      .tl-item { border-right: none; border-bottom: 1px solid var(--border); }
-      .tl-item:last-child { border-bottom: none; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .form-card { grid-column: span 1; }
-      .form-row { grid-template-columns: 1fr; }
-      .fg.full { grid-column: span 1; }
-    }
-    @media (max-width: 700px) {
-      .site-nav { padding: 14px 18px; }
-      .nav-status { display: none; }
-      main { padding: 88px 14px 80px; }
-      .bento { grid-template-columns: 1fr 1fr; }
-      .b3,.b4,.b5,.b6,.b7,.b8,.b12 { grid-column: span 2; }
-      .about-wrap,.contact-wrap { padding: 88px 14px 80px; }
-      footer { flex-direction: column; align-items: flex-start; padding: 18px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *,*::before,*::after { animation-duration:0.01ms!important; transition-duration:0.01ms!important; }
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Sachin Chandra Bhatt — Web Designer & Developer</title>
+  <meta name="description" content="Professional websites for consultants, clinics, coaching institutes, real estate and growing businesses. Built to look premium and convert." />
+  <meta property="og:title" content="Sachin Chandra Bhatt — Web Designer & Developer" />
+  <meta property="og:description" content="Professional websites for consultants, clinics, coaching institutes, real estate and growing businesses." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<div id="wipe" aria-hidden="true"></div>
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="brand js-anchor" aria-label="Sachin Chandra Bhatt Homepage">
+      <span class="brand-mark">S</span>
+      <span class="brand-name">Sachin Chandra Bhatt</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#work" class="js-anchor">Work</a></li>
+      <li><a href="#services" class="js-anchor">Services</a></li>
+      <li><a href="#process" class="js-anchor">Process</a></li>
+      <li><a href="#pricing" class="js-anchor">Pricing</a></li>
+      <li><a href="#contact" class="js-anchor">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta js-anchor">
+      <span>Get Started</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#work" class="js-anchor">Work</a>
+    <a href="#services" class="js-anchor">Services</a>
+    <a href="#process" class="js-anchor">Process</a>
+    <a href="#pricing" class="js-anchor">Pricing</a>
+    <a href="#contact" class="js-anchor">Contact</a>
+    <a href="#contact" class="mobile-cta js-anchor">Get Started →</a>
+  </div>
+</nav>
 
-<header>
-  <nav class="site-nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-logo" onclick="goTo('home')" role="button" tabindex="0">Sachin<span>.</span></div>
-    <div class="nav-pills">
-      <button class="nav-btn active" onclick="goTo('home')" id="btn-home" aria-current="page">Home</button>
-      <button class="nav-btn" onclick="goTo('about')" id="btn-about">About</button>
-      <button class="nav-btn" onclick="goTo('contact')" id="btn-contact">Contact</button>
+<section class="hero" id="hero">
+  <div class="hero-top-bar fade-up">
+    <div class="status-pill"><span class="pulse-dot"></span>Available for new projects</div>
+    <span class="location-tag">India ✦ Remote Worldwide</span>
+  </div>
+  <div class="hero-center">
+    <span class="hero-kicker fade-up" style="--d:.05s">Web Designer & Developer</span>
+    <h1 class="hero-h1">
+      <span class="h1-line fade-up" style="--d:.1s">Professional</span>
+      <span class="h1-line h1-italic fade-up" style="--d:.18s">Websites</span>
+      <span class="h1-line fade-up" style="--d:.26s">That Convert</span>
+    </h1>
+    <p class="hero-sub fade-up" style="--d:.34s">
+      I design and develop modern websites for consultants, clinics, coaching institutes, real estate professionals, and growing businesses across India.
+    </p>
+    <div class="hero-actions fade-up" style="--d:.42s">
+      <a href="#work" class="btn-primary-hero js-anchor">
+        View My Work
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#contact" class="btn-ghost-hero js-anchor">Get Free Review</a>
     </div>
-    <div class="nav-status">
-      <div class="status-dot" aria-hidden="true"></div>
-      Open to work
-    </div>
-  </nav>
-</header>
+  </div>
+  <!-- <div class="hero-stats-bar fade-up" style="--d:.5s">
+    <div class="hero-stat"><span class="hstat-num">50+</span><span class="hstat-label">Projects Delivered</span></div>
+    <div class="hero-stat-div"></div>
+    <div class="hero-stat"><span class="hstat-num">7–10</span><span class="hstat-label">Day Delivery</span></div>
+    <div class="hero-stat-div"></div>
+    <div class="hero-stat"><span class="hstat-num">100%</span><span class="hstat-label">Responsive Design</span></div>
+    <div class="hero-stat-div"></div>
+    <div class="hero-stat"><span class="hstat-num">India</span><span class="hstat-label">Based & Remote</span></div>
+  </div> -->
+</section>
 
-<!-- ═══════ HOME ═══════ -->
-<div class="page active" id="page-home" role="main">
-  <main id="main-content">
-    <div class="bento">
-
-      <!-- HERO -->
-      <article class="card card-hero b8 card-enter" aria-label="Introduction">
-        <div>
-          <div class="hero-badge">
-            <div class="status-dot" aria-hidden="true"></div>
-            Fresher · Open to opportunities
-          </div>
-          <h1 class="hero-name">Hi, I'm<br><strong>Sachin</strong></h1>
-          <p class="hero-desc">Social Media Manager · Thumbnail Designer · Video Editor — turning ideas into content that stops the scroll and builds real communities.</p>
-          <div class="hero-chips">
-            <span class="chip"><span class="dot" style="background:var(--a1)"></span>Social Media</span>
-            <span class="chip"><span class="dot" style="background:var(--a2)"></span>Thumbnails</span>
-            <span class="chip"><span class="dot" style="background:var(--a5)"></span>Video Editing</span>
-            <span class="chip"><span class="dot" style="background:var(--a4)"></span>Analytics</span>
-            <span class="chip">📍 India · Remote-ready</span>
-          </div>
-        </div>
-        <button onclick="goTo('contact')" class="hero-cta" aria-label="Let's work together">
-          Let's work together
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </article>
-
-      <!-- STAT -->
-      <article class="card card-stat b4 card-enter" aria-label="Journey">
-        <div class="lbl" style="color:rgba(255,255,255,0.35)">Journey</div>
-        <div class="stat-big">Day<br>One</div>
-        <div class="stat-label">Starting fresh. Learning fast.</div>
-        <div class="stat-mono">// every expert was here once</div>
-      </article>
-
-      <!-- THUMBNAIL SHOWCASE -->
-      <article class="card card-thumb b6 card-enter" aria-label="Thumbnail Design">
-        <div class="lbl">Thumbnail Design</div>
-        <div style="font-size:16px;font-weight:700;margin-bottom:2px">Clicks start with the thumbnail</div>
-        <div class="thumb-grid">
-          <div class="thumb-item"><div class="ti-bg t1">🎯</div><div class="ti-overlay"><span class="ti-tag">CTR Hook</span></div></div>
-          <div class="thumb-item"><div class="ti-bg t2">🚀</div><div class="ti-overlay"><span class="ti-tag">Bold Type</span></div></div>
-          <div class="thumb-item"><div class="ti-bg t3">⚡</div><div class="ti-overlay"><span class="ti-tag">High Contrast</span></div></div>
-          <div class="thumb-item"><div class="ti-bg t4">🎬</div><div class="ti-overlay"><span class="ti-tag">Dark Theme</span></div></div>
-        </div>
-        <p style="font-size:11.5px;color:var(--muted2)">Canva & Photoshop — colour psychology, bold type, and faces that drive clicks.</p>
-      </article>
-
-      <!-- SERVICES -->
-      <article class="card card-services b6 card-enter" aria-label="Services">
-        <div class="lbl">What I Do</div>
-        <div class="svc-list">
-          <div class="svc">
-            <div class="svc-ico" style="background:rgba(232,67,26,0.1)">📱</div>
-            <div><div class="svc-name">Social Media Management</div><div class="svc-desc">Strategy, calendars, scheduling & community engagement across all platforms</div></div>
-          </div>
-          <div class="svc">
-            <div class="svc-ico" style="background:rgba(245,166,35,0.12)">🎨</div>
-            <div><div class="svc-name">Thumbnail Design</div><div class="svc-desc">YouTube & social graphics that boost CTR — bold, branded, unmissable</div></div>
-          </div>
-          <div class="svc">
-            <div class="svc-ico" style="background:rgba(155,81,224,0.12)">🎬</div>
-            <div><div class="svc-name">Video Editing</div><div class="svc-desc">Reels, Shorts, long-form — hooks, cuts, captions & music that keep viewers watching</div></div>
-          </div>
-          <div class="svc">
-            <div class="svc-ico" style="background:rgba(18,184,134,0.1)">📊</div>
-            <div><div class="svc-name">Analytics & Reporting</div><div class="svc-desc">Reading data to find what actually grows an audience and improves reach</div></div>
-          </div>
-        </div>
-      </article>
-
-      <!-- VIDEO REEL -->
-      <article class="card card-video b6 card-enter" aria-label="Video Editing">
-        <div class="lbl">Video Editing</div>
-        <div class="chead">Reels &amp; Shorts that stop the scroll</div>
-        <div class="reel-row">
-          <div class="reel-item"><div class="reel-bg" style="background:linear-gradient(160deg,#1a0e28,#9b51e0)">🎬</div><div class="reel-play"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-          <div class="reel-item"><div class="reel-bg" style="background:linear-gradient(160deg,#200c0a,#e8431a)">✂️</div><div class="reel-play"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-          <div class="reel-item"><div class="reel-bg" style="background:linear-gradient(160deg,#0a1620,#1a4fe8)">⚡</div><div class="reel-play"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-        </div>
-        <p class="reel-note">Hook in 3s · tight cuts · bold captions · trending audio · colour grading</p>
-      </article>
-
-      <!-- ANALYTICS -->
-      <article class="card card-analytics b6 card-enter" aria-label="Analytics">
-        <div class="lbl">Social Analytics</div>
-        <div class="an-meta">
-          <div class="an-val">12.4K</div>
-          <span class="an-badge">↑ Study data</span>
-        </div>
-        <div class="bar-chart" role="img" aria-label="Sample reach trend chart">
-          <div class="bc" style="height:34%;background:var(--a1);opacity:0.25"></div>
-          <div class="bc" style="height:48%;background:var(--a1);opacity:0.35"></div>
-          <div class="bc" style="height:40%;background:var(--a1);opacity:0.3"></div>
-          <div class="bc" style="height:65%;background:var(--a1);opacity:0.5"></div>
-          <div class="bc" style="height:53%;background:var(--a1);opacity:0.42"></div>
-          <div class="bc" style="height:82%;background:var(--a1);opacity:0.85"></div>
-          <div class="bc" style="height:71%;background:var(--a1);opacity:0.7"></div>
-          <div class="bc" style="height:96%;background:var(--a1);opacity:1"></div>
-        </div>
-        <p style="font-size:11.5px;color:var(--muted2)">Studying Meta Business Suite · YouTube Studio · Twitter Analytics · LinkedIn Insights</p>
-      </article>
-
-      <!-- TOOLS -->
-      <article class="card card-tools b6 card-enter" aria-label="Tools">
-        <div class="lbl">Tools &amp; Software</div>
-        <div class="tools-grid">
-          <div class="tool"><span class="tool-icon">🎨</span><span class="tool-name">Canva</span></div>
-          <div class="tool"><span class="tool-icon">🖼️</span><span class="tool-name">Photoshop</span></div>
-          <div class="tool"><span class="tool-icon">🎬</span><span class="tool-name">CapCut</span></div>
-          <div class="tool"><span class="tool-icon">✂️</span><span class="tool-name">Premiere</span></div>
-          <div class="tool"><span class="tool-icon">📊</span><span class="tool-name">Meta Suite</span></div>
-          <div class="tool"><span class="tool-icon">📅</span><span class="tool-name">Buffer</span></div>
-          <div class="tool"><span class="tool-icon">📆</span><span class="tool-name">Later</span></div>
-          <div class="tool"><span class="tool-icon">📈</span><span class="tool-name">Hootsuite</span></div>
-          <div class="tool"><span class="tool-icon">🔍</span><span class="tool-name">GA4</span></div>
-        </div>
-      </article>
-
-      <!-- PLATFORMS -->
-      <article class="card card-plats b4 card-enter" aria-label="Platforms">
-        <div class="lbl">Platforms</div>
-        <div class="plat-list">
-          <div class="plat">
-            <div class="plat-ico" style="background:#111;color:#fff;font-weight:900;font-size:14px">𝕏</div>
-            <div class="plat-name">Twitter / X</div>
-            <span class="plat-badge" style="background:rgba(0,0,0,0.06);color:var(--muted2)">Threads</span>
-          </div>
-          <div class="plat">
-            <div class="plat-ico" style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888)">📸</div>
-            <div class="plat-name">Instagram</div>
-            <span class="plat-badge" style="background:rgba(220,39,67,0.1);color:#dc2743">Reels</span>
-          </div>
-          <div class="plat">
-            <div class="plat-ico" style="background:#0077b5;color:#fff">💼</div>
-            <div class="plat-name">LinkedIn</div>
-            <span class="plat-badge" style="background:rgba(0,119,181,0.1);color:#0077b5">B2B</span>
-          </div>
-          <div class="plat">
-            <div class="plat-ico" style="background:#ff0000">▶️</div>
-            <div class="plat-name">YouTube</div>
-            <span class="plat-badge" style="background:rgba(255,0,0,0.1);color:#ff3333">Shorts</span>
-          </div>
-          <div class="plat">
-            <div class="plat-ico" style="background:#010101;color:#fff">🎵</div>
-            <div class="plat-name">TikTok</div>
-            <span class="plat-badge" style="background:rgba(18,184,134,0.1);color:var(--a4)">Trends</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- WORKFLOW -->
-      <article class="card card-flow b4 card-enter" aria-label="Editing Workflow">
-        <div class="lbl">Editing Workflow</div>
-        <div class="flow-list">
-          <div class="flow-step">
-            <div class="fnum" style="background:rgba(232,67,26,0.1);color:var(--a1)">01</div>
-            <div><div class="fhead">Hook First</div><div class="fdesc">First 3 seconds decide everything — design the hook before anything</div></div>
-          </div>
-          <div class="flow-step">
-            <div class="fnum" style="background:rgba(155,81,224,0.1);color:var(--a5)">02</div>
-            <div><div class="fhead">Pace &amp; Cut</div><div class="fdesc">Tight cuts, no dead air — keep viewers locked from start to end</div></div>
-          </div>
-          <div class="flow-step">
-            <div class="fnum" style="background:rgba(18,184,134,0.1);color:var(--a4)">03</div>
-            <div><div class="fhead">Sound &amp; Captions</div><div class="fdesc">Trending audio + bold captions for muted &amp; unmuted viewers</div></div>
-          </div>
-          <div class="flow-step">
-            <div class="fnum" style="background:rgba(245,166,35,0.12);color:var(--a2)">04</div>
-            <div><div class="fhead">Thumbnail Match</div><div class="fdesc">Thumbnail &amp; title designed together for a consistent brand</div></div>
-          </div>
-        </div>
-      </article>
-
-      <!-- QUOTE -->
-      <article class="card card-quote b4 card-enter" aria-label="Philosophy">
-        <div class="lbl">Philosophy</div>
-        <div class="q-mark" aria-hidden="true">"</div>
-        <blockquote class="q-text">Content that doesn't get watched doesn't exist. Make it impossible to skip.</blockquote>
-        <div class="q-attr">— what I build towards</div>
-      </article>
-
-      <!-- BLANKS -->
-      <div class="card-blank b4 card-enter" aria-label="Case study coming soon">
-        <div class="blank-icon">📈</div>
-        <div class="blank-title">First Case Study</div>
-        <p class="blank-sub">Real campaign · real results.<br>Watch this space.</p>
-      </div>
-      <div class="card-blank b4 card-enter" aria-label="Video portfolio coming soon">
-        <div class="blank-icon">🎬</div>
-        <div class="blank-title">Video Portfolio</div>
-        <p class="blank-sub">First edit project goes here.<br>Something great is cooking.</p>
-      </div>
-
-      <!-- CTA -->
-      <article class="card card-cta b12 card-enter" aria-label="Call to action">
-        <div>
-          <div class="cta-big">Ready to grow your brand?</div>
-          <div class="cta-sub">Social strategy + thumbnails + video — all in one place.</div>
-        </div>
-        <button onclick="goTo('contact')" class="cta-btn" aria-label="Get in touch">
-          Get in touch
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </article>
-
-    </div>
-  </main>
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee"></div>
 </div>
 
-<!-- ═══════ ABOUT ═══════ -->
-<div class="page" id="page-about" role="main" aria-labelledby="about-h">
-  <div class="about-wrap">
+<section class="section about" id="about">
+  <div class="container">
     <div class="about-grid">
-      <article class="card card-story rv" aria-label="My story">
-        <h1 id="about-h" class="story-h1">The story so far.</h1>
-        <div class="story-body">
-          <p>I'm <strong>Sachin</strong> — a fresher Social Media Manager, Thumbnail Designer, and Video Editor from India. Zero client work yet, and I'm saying that with total honesty.</p>
-          <p>It started with a simple question: <em>why do some small creators feel bigger than brands with millions of followers?</em> That question sent me deep into platform algorithms, content psychology, thumbnail A/B testing, and video retention analytics.</p>
-          <p>I've built skills across <strong>content strategy, editorial calendars, community management</strong>, short-form video editing (Reels, Shorts, TikTok), <strong>thumbnail design</strong> in Canva and Photoshop, and social analytics via Meta Business Suite, YouTube Studio, and LinkedIn Insights.</p>
-          <p>What sets me apart is the <strong>full-stack creative package</strong>. I don't just manage posts — I design the thumbnail that earns the click, edit the video that holds attention, then track the data that tells us what to do next.</p>
-          <p>I'm actively looking for my first opportunity — freelance, internship, or a small brand ready to grow. <strong>Let's talk.</strong></p>
+      <div class="about-left">
+        <div class="section-label fade-up">About Me</div>
+        <h2 class="about-h2 fade-up" style="--d:.08s">Hi, I'm Sachin.<br><em class="serif-em">I build websites<br>that work.</em></h2>
+        <div class="about-body fade-up" style="--d:.16s">
+          <p>I help businesses create modern websites that look professional, build trust, and make it easier for customers to connect with them.</p>
+          <p>Every project focuses on four things: <strong>clarity, performance, user experience,</strong> and <strong>business growth.</strong> I'm not just building websites — I'm building tools that help your business work better online.</p>
         </div>
-      </article>
-      <div class="about-right">
-        <div class="card card-av rv" aria-label="Profile photo placeholder">
-          <div class="av-em" aria-hidden="true">🎬</div>
-          <div class="av-cap">// add your photo here</div>
-        </div>
-        <div class="card card-facts rv" aria-label="Quick facts">
-          <div class="lbl">Quick Facts</div>
-          <div class="fact"><div class="fact-ico" style="background:rgba(232,67,26,0.1)">🇮🇳</div><span class="fact-txt">Based in India · Remote-first</span></div>
-          <div class="fact"><div class="fact-ico" style="background:rgba(245,166,35,0.12)">🎨</div><span class="fact-txt">Thumbnail Designer (Canva · PS)</span></div>
-          <div class="fact"><div class="fact-ico" style="background:rgba(155,81,224,0.12)">✂️</div><span class="fact-txt">Video Editor (CapCut · Premiere)</span></div>
-          <div class="fact"><div class="fact-ico" style="background:rgba(18,184,134,0.1)">📊</div><span class="fact-txt">Analytics Learner</span></div>
-          <div class="fact"><div class="fact-ico" style="background:rgba(26,79,232,0.1)">🌱</div><span class="fact-txt">Fresher · Eager to prove it</span></div>
+        <div class="about-skills fade-up" style="--d:.24s">
+          <span>Design</span><span>Development</span><span>SEO</span><span>Strategy</span>
         </div>
       </div>
-      <article class="card card-timeline rv" style="grid-column:span 2" aria-label="Timeline">
-        <div class="lbl" style="margin-bottom:16px">Timeline</div>
-        <div class="tl">
-          <div class="tl-item">
-            <div class="tl-dot" style="background:var(--a1)"></div>
-            <div class="tl-year">2023 — 2024</div>
-            <div class="tl-head">The obsession begins</div>
-            <div class="tl-desc">Deep-dived into social media strategy, content psychology, and platform algorithms through courses and self-study.</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot" style="background:var(--a2)"></div>
-            <div class="tl-year">2024</div>
-            <div class="tl-head">Added: Thumbnail Design</div>
-            <div class="tl-desc">Learned design principles, colour theory, and click psychology. Practised hundreds of thumbnails on personal channels.</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot" style="background:var(--a5)"></div>
-            <div class="tl-year">2024 — 2025</div>
-            <div class="tl-head">Added: Video Editing</div>
-            <div class="tl-desc">Mastered CapCut, then Premiere Pro — hooks, pacing, captions, sound design, and Reels/Shorts formats.</div>
-          </div>
-          <div class="tl-item">
-            <div class="tl-dot" style="background:var(--a4)"></div>
-            <div class="tl-year">Now →</div>
-            <div class="tl-head">Seeking First Client</div>
-            <div class="tl-desc">Portfolio in progress. Actively looking for freelance, internship, or a brand to help grow. Case studies incoming.</div>
-          </div>
-        </div>
-      </article>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════ CONTACT ═══════ -->
-<div class="page" id="page-contact" role="main" aria-labelledby="contact-h">
-  <div class="contact-wrap">
-    <div class="contact-grid">
-      <a href="#" class="social-card rv" aria-label="Twitter / X">
-        <div class="sc-top"><span class="sc-lbl">Follow</span><div class="sc-arr">↗</div></div>
-        <div class="sc-bot">
-          <div class="sc-ico" style="background:#111;color:#fff;font-weight:900;font-size:20px">𝕏</div>
-          <div class="sc-name">Twitter / X</div>
-        </div>
-      </a>
-      <a href="#" class="social-card rv" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#bc1888);border-color:transparent;color:#fff" aria-label="Instagram">
-        <div class="sc-top"><span class="sc-lbl" style="color:rgba(255,255,255,0.55)">Follow</span><div class="sc-arr" style="background:rgba(255,255,255,0.15);color:#fff">↗</div></div>
-        <div class="sc-bot"><div class="sc-ico" style="background:rgba(255,255,255,0.18);font-size:22px">📸</div><div class="sc-name">Instagram</div></div>
-      </a>
-      <a href="#" class="social-card rv" style="background:linear-gradient(145deg,#0077b5,#004f80);border-color:transparent;color:#fff" aria-label="LinkedIn">
-        <div class="sc-top"><span class="sc-lbl" style="color:rgba(255,255,255,0.55)">Connect</span><div class="sc-arr" style="background:rgba(255,255,255,0.15);color:#fff">↗</div></div>
-        <div class="sc-bot"><div class="sc-ico" style="background:rgba(255,255,255,0.15);font-size:22px">💼</div><div class="sc-name">LinkedIn</div></div>
-      </a>
-      <div class="form-card rv">
-        <h1 id="contact-h" class="form-h">Say hello 👋</h1>
-        <form id="contact-form" novalidate aria-label="Contact form">
-          <div class="form-row">
-            <div class="fg"><label for="name">Your Name</label><input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required/></div>
-            <div class="fg"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required/></div>
-            <div class="fg full">
-              <label for="service">What do you need?</label>
-              <select id="service" name="service">
-                <option value="" disabled selected>Select a service...</option>
-                <option value="smm">Social Media Management</option>
-                <option value="thumb">Thumbnail Design</option>
-                <option value="video">Video Editing</option>
-                <option value="all">Full Package (All of the above)</option>
-                <option value="other">Something else</option>
-              </select>
+      <div class="about-right fade-up" style="--d:.12s">
+        <div class="portrait-wrap">
+          <div class="portrait-card">
+            <div class="portrait-avatar"><i class="fa-solid fa-code" aria-hidden="true"></i></div>
+            <div class="portrait-meta">
+              <strong>Sachin Chandra Bhatt</strong>
+              <span>Independent Web Designer & Developer</span>
+              <div class="portrait-chips">
+                <div class="p-chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> India</div>
+                <div class="p-chip green"><span class="live-dot"></span> Available</div>
+              </div>
             </div>
-            <div class="fg full"><label for="message">Tell me more</label><textarea id="message" name="message" rows="4" placeholder="Tell me about your brand, what platform, what you're trying to achieve..." required></textarea></div>
           </div>
-          <button type="submit" class="submit-btn">
-            Send Message
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </form>
+          <blockquote class="about-quote"><p>"Good design is business strategy made visible."</p></blockquote>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<footer role="contentinfo">
-  <div class="ft-l">🇮🇳 India <span style="width:3px;height:3px;background:var(--border2);border-radius:50%;display:inline-block"></span> <time id="clock">--:--:--</time></div>
-  <p class="ft-m">Built with intention — Sachin's Portfolio ✦</p>
-  <nav class="ft-r" aria-label="Social links">
-    <a href="#">𝕏 Twitter</a>
-    <a href="#">📸 Instagram</a>
-    <a href="#">💼 LinkedIn</a>
-  </nav>
+<section class="section services" id="services">
+  <div class="container">
+    <div class="section-head-split fade-up">
+      <div class="shs-left">
+        <div class="section-label light">Who I Work With</div>
+        <h2 class="light-h2">Built for Businesses<br><em class="serif-em white-em">That Mean Business</em></h2>
+      </div>
+      <p class="shs-desc">Every industry has different needs. I specialise in websites that solve real business problems for real clients.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind-card fade-up"><div class="ind-num">01</div><div class="ind-icon"><i class="fa-solid fa-building"></i></div><h3>Real Estate</h3><p>Showcase properties, build buyer confidence, generate qualified leads.</p></div>
+      <div class="ind-card fade-up" style="--d:.05s"><div class="ind-num">02</div><div class="ind-icon"><i class="fa-solid fa-stethoscope"></i></div><h3>Clinics & Healthcare</h3><p>A professional presence that earns patient trust and drives bookings.</p></div>
+      <div class="ind-card fade-up" style="--d:.1s"><div class="ind-num">03</div><div class="ind-icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>Coaching Institutes</h3><p>Attract serious students with a modern, credible online presence.</p></div>
+      <div class="ind-card fade-up" style="--d:.15s"><div class="ind-num">04</div><div class="ind-icon"><i class="fa-solid fa-plane-departure"></i></div><h3>Immigration Consultants</h3><p>Help clients trust you with their most important life decisions.</p></div>
+      <div class="ind-card fade-up" style="--d:.2s"><div class="ind-num">05</div><div class="ind-icon"><i class="fa-solid fa-couch"></i></div><h3>Interior Designers</h3><p>Display your portfolio beautifully to attract premium clients.</p></div>
+      <div class="ind-card fade-up" style="--d:.25s"><div class="ind-num">06</div><div class="ind-icon"><i class="fa-solid fa-briefcase"></i></div><h3>Professional Services</h3><p>Stand out with clarity and credibility in a competitive market.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section work" id="work">
+  <div class="container">
+    <div class="section-head-split fade-up">
+      <div class="shs-left">
+        <div class="section-label">Featured Work</div>
+        <h2>Projects Designed<br><em class="serif-em">to Perform</em></h2>
+      </div>
+      <p class="shs-desc dark-desc">Concept projects built to show what modern business websites can look like.</p>
+    </div>
+  </div>
+
+  <div class="work-list">
+    <div class="work-item fade-up">
+      <div class="container work-row">
+        <div class="work-visual">
+          <figure class="work-image"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80" alt="Luxury Realty Portfolio Preview" loading="lazy"/></figure>
+          <div class="work-float-tag">Luxury Property</div>
+        </div>
+        <div class="work-text">
+          <div class="work-index">01</div>
+          <span class="work-cat">Real Estate</span>
+          <h3>Luxury Realty</h3>
+          <p>A high-end real estate website designed to showcase luxury properties and generate qualified leads.</p>
+          <a href="#contact" class="work-cta js-anchor">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item fade-up">
+      <div class="container work-row work-row-rev">
+        <div class="work-visual">
+          <figure class="work-image"><img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1400&q=80" alt="Prime Clinic Portfolio Preview" loading="lazy"/></figure>
+          <div class="work-float-tag">Healthcare</div>
+        </div>
+        <div class="work-text">
+          <div class="work-index">02</div>
+          <span class="work-cat">Healthcare</span>
+          <h3>Prime Clinic</h3>
+          <p>A clean, trust-focused clinic website that makes booking appointments effortless for patients.</p>
+          <a href="#contact" class="work-cta js-anchor">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item fade-up">
+      <div class="container work-row">
+        <div class="work-visual">
+          <figure class="work-image"><img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&w=1400&q=80" alt="Elite Academy Portfolio Preview" loading="lazy"/></figure>
+          <div class="work-float-tag">Education</div>
+        </div>
+        <div class="work-text">
+          <div class="work-index">03</div>
+          <span class="work-cat">Education</span>
+          <h3>Elite Academy</h3>
+          <p>A coaching institute website built to attract serious students and communicate credibility instantly.</p>
+          <a href="#contact" class="work-cta js-anchor">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item fade-up">
+      <div class="container work-row work-row-rev">
+        <div class="work-visual">
+          <figure class="work-image"><img src="https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?auto=format&fit=crop&w=1400&q=80" alt="Global Path Portfolio Preview" loading="lazy"/></figure>
+          <div class="work-float-tag">Consultancy</div>
+        </div>
+        <div class="work-text">
+          <div class="work-index">04</div>
+          <span class="work-cat">Immigration</span>
+          <h3>Global Path</h3>
+          <p>A consultancy website that builds trust and clearly guides clients through life-changing decisions.</p>
+          <a href="#contact" class="work-cta js-anchor">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-item fade-up">
+      <div class="container work-row">
+        <div class="work-visual">
+          <figure class="work-image"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1400&q=80" alt="Studio Interior Portfolio Preview" loading="lazy"/></figure>
+          <div class="work-float-tag">Interiors</div>
+        </div>
+        <div class="work-text">
+          <div class="work-index">05</div>
+          <span class="work-cat">Interior Design</span>
+          <h3>Studio Interior</h3>
+          <p>A portfolio website that lets the design work speak — clean, spacious, and undeniably premium.</p>
+          <a href="#contact" class="work-cta js-anchor">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section why">
+  <div class="container">
+    <div class="section-label light fade-up">The Difference</div>
+    <h2 class="light-h2 why-h2 fade-up" style="--d:.08s">What You Get When<br><em class="serif-em white-em">We Work Together</em></h2>
+    <div class="why-grid">
+      <div class="why-card fade-up"><div class="why-head"><span class="why-num">01</span><i class="fa-solid fa-chart-line"></i></div><h3>Business First</h3><p>Every design decision is made with your business goals in mind, not just aesthetics.</p></div>
+      <div class="why-card fade-up" style="--d:.06s"><div class="why-head"><span class="why-num">02</span><i class="fa-solid fa-wand-magic-sparkles"></i></div><h3>Modern Design</h3><p>Clean, professional layouts that reflect the quality of your business and brand.</p></div>
+      <div class="why-card fade-up" style="--d:.12s"><div class="why-head"><span class="why-num">03</span><i class="fa-solid fa-bolt"></i></div><h3>Fast Delivery</h3><p>Most websites are ready within 7–10 business days so you don't wait around.</p></div>
+      <div class="why-card fade-up" style="--d:.18s"><div class="why-head"><span class="why-num">04</span><i class="fa-solid fa-mobile-screen"></i></div><h3>Mobile Optimized</h3><p>Your website will look and perform perfectly on every device, every single time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section process" id="process">
+  <div class="container">
+    <div class="section-label fade-up">How It Works</div>
+    <h2 class="process-h2 fade-up" style="--d:.08s">From First Call<br><em class="serif-em">to Live Website</em></h2>
+    <div class="process-steps">
+      <div class="process-step fade-up"><div class="ps-num">01</div><div class="ps-line"></div><div class="ps-body"><h3>Discovery</h3><p>We discuss your business, goals, target audience, and requirements over a quick call.</p></div></div>
+      <div class="process-step fade-up" style="--d:.06s"><div class="ps-num">02</div><div class="ps-line"></div><div class="ps-body"><h3>Strategy</h3><p>I plan the website structure, content flow, and design direction tailored to your audience.</p></div></div>
+      <div class="process-step fade-up" style="--d:.12s"><div class="ps-num">03</div><div class="ps-line"></div><div class="ps-body"><h3>Design & Development</h3><p>I build your complete website with full focus on performance, clarity, and conversion.</p></div></div>
+      <div class="process-step fade-up" style="--d:.18s"><div class="ps-num">04</div><div class="ps-line"></div><div class="ps-body"><h3>Launch</h3><p>Your website goes live. I handle all technical setup and ensure everything runs perfectly.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="section-label light fade-up">Pricing</div>
+    <h2 class="light-h2 pricing-h2 fade-up" style="--d:.08s">Simple, Transparent<br><em class="serif-em white-em">Pricing</em></h2>
+    <p class="pricing-sub fade-up" style="--d:.16s">No hidden charges. No complicated quotes. Just clear value.</p>
+    <div class="pricing-grid">
+      <div class="price-card fade-up">
+        <div class="pc-label">Professional</div>
+        <p class="pc-desc">Perfect for consultants, coaches & clinics getting started online.</p>
+        <div class="pc-price"><span class="pc-currency">₹</span><span class="pc-amount">9,999</span></div>
+        <ul class="pc-features">
+          <li><i class="fa-solid fa-check"></i>Up to 5 Pages</li>
+          <li><i class="fa-solid fa-check"></i>Responsive Design</li>
+          <li><i class="fa-solid fa-check"></i>Contact Form</li>
+          <li><i class="fa-solid fa-check"></i>WhatsApp Integration</li>
+          <li><i class="fa-solid fa-check"></i>Google Maps Embed</li>
+          <li><i class="fa-solid fa-check"></i>Basic SEO Setup</li>
+          <li><i class="fa-solid fa-check"></i>14 Days Support</li>
+        </ul>
+        <a href="#contact" class="pc-btn js-anchor">Get Started →</a>
+      </div>
+      <div class="price-card price-card-featured fade-up" style="--d:.1s">
+        <div class="pc-badge">MOST POPULAR</div>
+        <div class="pc-label white-label">Growth</div>
+        <p class="pc-desc white-desc">For businesses ready to grow faster with a stronger online presence.</p>
+        <div class="pc-price"><span class="pc-currency white-c">₹</span><span class="pc-amount white-a">14,999</span></div>
+        <ul class="pc-features white-features">
+          <li><i class="fa-solid fa-check"></i>Up to 8 Pages</li>
+          <li><i class="fa-solid fa-check"></i>Everything in Professional</li>
+          <li><i class="fa-solid fa-check"></i>Blog Setup</li>
+          <li><i class="fa-solid fa-check"></i>Advanced Contact Forms</li>
+          <li><i class="fa-solid fa-check"></i>Enhanced SEO Structure</li>
+          <li><i class="fa-solid fa-check"></i>Priority Support</li>
+          <li><i class="fa-solid fa-check"></i>30 Days Support</li>
+        </ul>
+        <a href="#contact" class="pc-btn pc-btn-accent js-anchor">Get Started →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section faq" id="faq">
+  <div class="container faq-wrap">
+    <div class="faq-left">
+      <div class="section-label fade-up">FAQ</div>
+      <h2 class="faq-h2 fade-up" style="--d:.08s">Questions<br>You Might<br><em class="serif-em">Have</em></h2>
+    </div>
+    <div class="faq-right fade-up" style="--d:.12s" id="faqList">
+      <div class="faq-item open">
+        <button class="faq-q" aria-expanded="true"><span>How long does it take to build my website?</span><div class="faq-icon"><span></span><span></span></div></button>
+        <div class="faq-a"><p>Most projects are completed within 7–10 business days after I receive your content (text, images, logo). Complex projects may take up to 14 days.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Can I request changes after the website is built?</span><div class="faq-icon"><span></span><span></span></div></button>
+        <div class="faq-a"><p>Yes. I offer revision rounds during development and post-launch support for any fixes or small updates — 14 or 30 days depending on your plan.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Is SEO included in the package?</span><div class="faq-icon"><span></span><span></span></div></button>
+        <div class="faq-a"><p>Yes. Basic SEO setup is included — this covers page titles, meta descriptions, image optimisation, and site speed setup to help you rank on Google.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Do I need to arrange my own hosting and domain?</span><div class="faq-icon"><span></span><span></span></div></button>
+        <div class="faq-a"><p>Yes, you'll need a domain and hosting. I'll guide you on exactly what to buy and from where. Technical setup is handled as part of my service.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>What do you need from me to get started?</span><div class="faq-icon"><span></span><span></span></div></button>
+        <div class="faq-a"><p>Your logo, brand colors, the text content you want on the website, and reference websites you like. I'll walk you through everything else step by step.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="contact">
+  <div class="container cta-inner">
+    <div class="cta-tag fade-up">Get In Touch</div>
+    <h2 class="cta-h2 fade-up" style="--d:.08s">Ready To Build A<br><em class="serif-em">Better Online<br>Presence?</em></h2>
+    <p class="cta-sub fade-up" style="--d:.18s">Let's discuss your business and create a website that helps you stand out online.</p>
+    <div class="cta-actions fade-up" style="--d:.26s">
+      <a href="https://wa.me/910000000000" class="cta-btn-white" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp Me</a>
+      <a href="mailto:hello@sachinchandrabhatt.dev" class="cta-btn-outline">Book a Free Consultation</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="footer-name">Sachin Chandra Bhatt</div>
+      <p>Independent Web Designer & Developer</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer Navigation">
+      <a href="#work" class="js-anchor">Work</a>
+      <a href="#services" class="js-anchor">Services</a>
+      <a href="#pricing" class="js-anchor">Pricing</a>
+      <a href="#contact" class="js-anchor">Contact</a>
+    </nav>
+    <div class="footer-social">
+      <a href="mailto:hello@sachinchandrabhatt.dev" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://wa.me/910000000000" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Sachin Chandra Bhatt</span>
+    <span>Built with care in India</span>
+  </div>
 </footer>
 
-<script>
-  const wipe = document.getElementById('wipe');
-  let curPage = 'home', busy = false;
-  function goTo(page) {
-    if (page === curPage || busy) return;
-    busy = true;
-    wipe.className = 'in';
-    setTimeout(() => {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-current'); });
-      document.getElementById('page-' + page).classList.add('active');
-      const btn = document.getElementById('btn-' + page);
-      btn.classList.add('active'); btn.setAttribute('aria-current','page');
-      window.scrollTo({top:0,behavior:'instant'});
-      curPage = page;
-      setTimeout(doReveal, 80);
-    }, 430);
-    setTimeout(() => {
-      wipe.className = 'out';
-      setTimeout(() => { wipe.className = ''; busy = false; }, 460);
-    }, 580);
-  }
-  function doReveal() {
-    document.querySelectorAll('#page-' + curPage + ' .rv').forEach((el,i) => {
-      setTimeout(() => el.classList.add('vis'), i * 80);
-    });
-  }
-  setTimeout(doReveal, 160);
-  const clockEl = document.getElementById('clock');
-  function tick() {
-    const n = new Date(), p = v => String(v).padStart(2,'0');
-    clockEl.textContent = `${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
-    clockEl.setAttribute('datetime', n.toISOString());
-  }
-  tick(); setInterval(tick, 1000);
-  document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = this.querySelector('.submit-btn');
-    btn.textContent = '✓ Message sent!';
-    btn.style.background = 'var(--a4)';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.innerHTML = 'Send Message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
-      btn.style.background = ''; btn.disabled = false; this.reset();
-    }, 3000);
-  });
-  document.querySelector('.nav-logo').addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') goTo('home'); });
-</script>
+<script src="script.js"></script>
 </body>
 </html>
