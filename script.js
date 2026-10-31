@@ -1,119 +1,277 @@
-(function () {
-  'use strict';
+/* ===== EDIT YOUR DETAILS HERE (the only place you need to change) ===== */
+const CONFIG = {
+  email: "sachin215@amityonline.com",   // your real email: contact form messages are delivered here
+  whatsapp: "910000000000",          // country code + number, digits only (e.g. 919876543210)
+  github: "https://github.com/your-username",
+  linkedin: "https://www.linkedin.com/in/your-username",
+  // Optional: a free Web3Forms key (web3forms.com). Leave "" to use FormSubmit, which needs no key.
+  formKey: ""
+};
+/* ====================================================================== */
 
-  // Dynamic Footer Copyright Year
-  var yearElement = document.getElementById('year');
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-  }
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Sticky Navbar Performance Tuning
-  var navbar = document.getElementById('navbar');
-  function handleNavbarScroll() {
-    if (window.scrollY > 40) {
-      navbar.classList.add('scrolled');
+/* ---------- Contact links ---------- */
+const targets = {
+  email: `mailto:${CONFIG.email}`,
+  whatsapp: `https://wa.me/${CONFIG.whatsapp}`,
+  github: CONFIG.github,
+  linkedin: CONFIG.linkedin
+};
+$$("[data-contact]").forEach(a => (a.href = targets[a.dataset.contact]));
+
+/* ---------- Mobile menu ---------- */
+const btn = $(".menu-btn"), links = $("#links");
+const setMenu = open => {
+  links.classList.toggle("open", open);
+  btn.setAttribute("aria-expanded", open);
+  btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+};
+btn.addEventListener("click", () => setMenu(!links.classList.contains("open")));
+$$("#links a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+document.addEventListener("keydown", e => e.key === "Escape" && setMenu(false));
+
+/* ---------- Nav: shadow after scrolling, highlight current section ---------- */
+const nav = $(".nav");
+const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);
+onScroll();
+addEventListener("scroll", onScroll, { passive: true });
+const navLinks = $$("#links a[href^='#']:not(.btn)");
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if (en.isIntersecting) navLinks.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.id));
+}), { rootMargin: "-45% 0px -50% 0px" });
+$$("main section[id]").forEach(s => io.observe(s));
+
+/* ---------- Hero: count the numbers up once ---------- */
+const fmtCount = (n, el) => {
+  const d = +el.dataset.decimals || 0;
+  const v = el.dataset.format === "inr" ? Math.round(n).toLocaleString("en-IN") : n.toFixed(d);
+  return (el.dataset.prefix || "") + v + (el.dataset.suffix || "");
+};
+if (!reduceMotion) {
+  $$("[data-count]").forEach(el => {
+    const end = parseFloat(el.dataset.count), t0 = performance.now() + 350, dur = 1300;
+    el.textContent = fmtCount(0, el);
+    const tick = now => {
+      const p = Math.min(Math.max((now - t0) / dur, 0), 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmtCount(end * e, el);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+}
+
+/* ---------- Website previews: desktop / phone (EstateEase, Studio Mitti) ---------- */
+$$(".frame.web").forEach(box => {
+  const screen = $(".screen", box), frame = $("iframe", screen);
+  const fit = () => {
+    const w = screen.clientWidth, h = screen.clientHeight;
+    if (screen.dataset.mode === "phone") {
+      const s = (h - 28) / 844;
+      frame.style.cssText = `width:390px;height:844px;transform:scale(${s});left:${(w - 390 * s) / 2}px;top:14px`;
     } else {
-      navbar.classList.remove('scrolled');
+      const s = w / 1440;
+      frame.style.cssText = `width:1440px;height:900px;transform:scale(${s});left:0;top:0`;
     }
-  }
-  window.addEventListener('scroll', handleNavbarScroll, { passive: true });
-  handleNavbarScroll();
+  };
+  fit();
+  new ResizeObserver(fit).observe(screen);
+  $$(".seg-btn[data-mode]", box).forEach(b => b.addEventListener("click", () => {
+    screen.dataset.mode = b.dataset.mode;
+    $$(".seg-btn[data-mode]", box).forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); });
+    fit();
+  }));
+});
 
-  // Mobile Menu Layout & State Management
-  var burgerButton = document.getElementById('hamburger');
-  var mobileMenu = document.getElementById('mobileMenu');
+/* ---------- RetailPulse: live dashboard from the 500 orders ---------- */
+if (typeof RP !== "undefined" && $("#mChart")) {
+  const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+  const short = n => n >= 1e5 ? "₹" + (n / 1e5).toFixed(2) + " L" : "₹" + Math.round(n / 1e3) + "K";
+  const axis = n => n >= 1e5 ? "₹" + (n / 1e5).toFixed(1).replace(".0", "") + " L" : "₹" + Math.round(n / 1e3) + "K";
+  const mon = i => RP.months[i];
+  const state = { cat: -1, chan: -1, city: -1 };
+  const tip = $("#tip");
 
-  function closeMobileMenu() {
-    burgerButton.classList.remove('active');
-    mobileMenu.classList.remove('open');
-    burgerButton.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  burgerButton.addEventListener('click', function () {
-    var isOpened = mobileMenu.classList.toggle('open');
-    burgerButton.classList.toggle('active', isOpened);
-    burgerButton.setAttribute('aria-expanded', isOpened ? 'true' : 'false');
-    document.body.style.overflow = isOpened ? 'hidden' : '';
-  });
-
-  // Balanced Smooth Scrolling Offset Execution
-  document.querySelectorAll('.js-anchor').forEach(function (anchor) {
-    anchor.addEventListener('click', function (event) {
-      var targetHref = anchor.getAttribute('href') || '';
-      if (targetHref.charAt(0) !== '#') return;
-      
-      var targetSection = document.querySelector(targetHref);
-      if (!targetSection) return;
-      
-      event.preventDefault();
-      closeMobileMenu();
-
-      var elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
-      var targetOffset = elementPosition - 80; // Optimized spacing architecture
-
-      window.scrollTo({
-        top: targetOffset,
-        behavior: 'smooth'
-      });
+  // Filter controls
+  const seg = (host, items, key) => {
+    [["All", -1], ...items.map((n, i) => [n, i])].forEach(([label, val]) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = label; b.className = "chipbtn"; b.dataset.val = val;
+      b.addEventListener("click", () => { state[key] = val; render(); });
+      host.appendChild(b);
     });
-  });
+  };
+  seg($("#fCat"), RP.cats, "cat");
+  seg($("#fChan"), RP.chans, "chan");
+  const citySel = $("#fCity");
+  [["All cities", -1], ...RP.cities.map((n, i) => [n, i])].forEach(([n, v]) => citySel.add(new Option(n, v)));
+  citySel.addEventListener("change", () => { state.city = +citySel.value; render(); });
+  $("#fReset").addEventListener("click", () => { state.cat = state.chan = state.city = -1; render(); });
 
-  // Dynamic Continuous Infinite Marquee Generation
-  var marqueeTrack = document.getElementById('marquee');
-  if (marqueeTrack) {
-    var marqueeItems = ['Mobile Responsive', 'SEO Optimized', 'Fast Loading', 'Business Focused', 'WhatsApp Ready', 'Google Maps'];
-    var dynamicHtml = '';
-    
-    // Looping arrays systematically to seamlessly bridge layout gaps
-    for (var loopCount = 0; loopCount < 4; loopCount++) {
-      for (var index = 0; index < marqueeItems.length; index++) {
-        dynamicHtml += '<span>' + marqueeItems[index] + '<span class="m-dot">✦</span></span>';
-      }
+  const bars = (host, entries, max) => {
+    host.innerHTML = entries.map(([name, v]) =>
+      `<div class="hrow"><span class="hname">${name}</span><span class="htrack"><i style="width:${max ? (v / max * 100) : 0}%"></i></span><span class="hval">${short(v)}</span></div>`
+    ).join("");
+  };
+
+  function render() {
+    // sync controls
+    $$("#fCat .chipbtn").forEach(b => b.setAttribute("aria-pressed", +b.dataset.val === state.cat));
+    $$("#fChan .chipbtn").forEach(b => b.setAttribute("aria-pressed", +b.dataset.val === state.chan));
+    citySel.value = state.city;
+
+    const rows = RP.rows.filter(r =>
+      (state.cat < 0 || r[1] === state.cat) && (state.city < 0 || r[2] === state.city) && (state.chan < 0 || r[3] === state.chan));
+    const rev = rows.reduce((a, r) => a + r[6], 0), profit = rows.reduce((a, r) => a + r[7], 0);
+    $("#kRev").textContent = inr(rev);
+    $("#kProfit").textContent = inr(profit);
+    $("#kOrders").textContent = rows.length.toLocaleString("en-IN");
+    $("#kMargin").textContent = rev ? (profit / rev * 100).toFixed(1) + "%" : "0%";
+
+    const empty = !rows.length;
+    $$(".dcard").forEach(c => c.classList.toggle("is-empty", empty));
+    if (empty) {
+      $("#mChart").innerHTML = $("#cityBars").innerHTML = $("#prodBars").innerHTML = "";
+      $("#insights").innerHTML = "<li>No orders match these filters. Press Reset to see everything.</li>";
+      return;
     }
-    marqueeTrack.innerHTML = dynamicHtml;
+
+    // Monthly stacked bars: profit + cost = revenue
+    const m = RP.months.map((_, i) => ({ rev: 0, profit: 0, n: 0 }));
+    rows.forEach(r => { const x = m[r[0]]; x.rev += r[6]; x.profit += r[7]; x.n++; });
+    const top = Math.max(...m.map(x => x.rev));
+    const best = m.findIndex(x => x.rev === top);
+    const step = top >= 1e5 ? 5e4 : 1e4;
+    const ymax = Math.ceil(top / step) * step;
+    const ticks = [ymax, ymax / 2, 0];
+    $("#mChart").innerHTML =
+      `<div class="grid">${ticks.map(t => `<span style="bottom:${t / ymax * 100}%"><em>${t ? axis(t) : "0"}</em></span>`).join("")}</div>` +
+      `<div class="cols12">${m.map((x, i) => {
+        const h = x.rev / ymax * 100, ph = x.rev ? x.profit / x.rev * 100 : 0;
+        return `<button type="button" class="mcol${i === best ? " best" : ""}" data-i="${i}" aria-label="${mon(i)}: revenue ${inr(x.rev)}, profit ${inr(x.profit)}, ${x.n} orders">` +
+          `<span class="plot">${i === best ? `<b class="mval">${short(x.rev)}</b>` : ""}<span class="stk" style="height:${h}%"><i class="c" style="height:${100 - ph}%"></i><i class="p" style="height:${ph}%"></i></span></span>` +
+          `<small>${mon(i).slice(0, 3)}</small></button>`;
+      }).join("")}</div>`;
+
+    // Cities and products
+    const by = (idx, n) => { const a = Array(n).fill(0); rows.forEach(r => (a[r[idx]] += r[6])); return a; };
+    const cities = by(2, RP.cities.length).map((v, i) => [RP.cities[i], v]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]);
+    const prods = by(4, RP.prods.length).map((v, i) => [RP.prods[i], v]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]);
+    bars($("#cityBars"), cities, cities[0][1]);
+    bars($("#prodBars"), prods.slice(0, 5), prods[0][1]);
+
+    // Written insights (like the Excel version)
+    const lines = [
+      `Best month: <b>${mon(best)}</b> with ${inr(top)}, ${(top / rev * 100).toFixed(1)}% of revenue.`,
+      state.city < 0 && cities.length > 1 ? `Top city: <b>${cities[0][0]}</b> with ${(cities[0][1] / rev * 100).toFixed(1)}% of revenue.` : null,
+      `Best seller: <b>${prods[0][0]}</b> with ${inr(prods[0][1])}.`,
+      state.chan < 0 ? `Online brings <b>${Math.round(rows.filter(r => r[3] === 0).reduce((a, r) => a + r[6], 0) / rev * 100)}%</b> of revenue.` : null
+    ].filter(Boolean);
+    $("#insights").innerHTML = lines.map(l => `<li>${l}</li>`).join("");
   }
 
-  // Refined Clean FAQ Accordion Mechanics
-  document.querySelectorAll('.faq-item').forEach(function (currentItem) {
-    var queryButton = currentItem.querySelector('.faq-q');
-    queryButton.addEventListener('click', function () {
-      var isAlreadyOpen = currentItem.classList.contains('open');
-      
-      document.querySelectorAll('.faq-item').forEach(function (item) {
-        item.classList.remove('open');
-        var itemBtn = item.querySelector('.faq-q');
-        if (itemBtn) itemBtn.setAttribute('aria-expanded', 'false');
-      });
+  // Tooltip for monthly bars (hover and keyboard focus)
+  const chart = $("#mChart");
+  const showTip = col => {
+    const i = +col.dataset.i;
+    const rows = RP.rows.filter(r => r[0] === i && (state.cat < 0 || r[1] === state.cat) && (state.city < 0 || r[2] === state.city) && (state.chan < 0 || r[3] === state.chan));
+    const rev = rows.reduce((a, r) => a + r[6], 0), pr = rows.reduce((a, r) => a + r[7], 0);
+    tip.innerHTML = `<strong>${mon(i)}</strong><span>Revenue <b>${inr(rev)}</b></span><span>Profit <b>${inr(pr)}</b></span><span>Orders <b>${rows.length}</b></span>`;
+    tip.hidden = false;
+    const c = col.getBoundingClientRect(), host = tip.offsetParent.getBoundingClientRect();
+    let x = c.left - host.left + c.width / 2 - tip.offsetWidth / 2;
+    x = Math.max(8, Math.min(x, host.width - tip.offsetWidth - 8));
+    tip.style.left = x + "px";
+    tip.style.top = (c.top - host.top + 20 - tip.offsetHeight) + "px";
+  };
+  const hideTip = () => (tip.hidden = true);
+  chart.addEventListener("mouseover", e => { const c = e.target.closest(".mcol"); c ? showTip(c) : hideTip(); });
+  chart.addEventListener("mouseleave", hideTip);
+  chart.addEventListener("focusin", e => { const c = e.target.closest(".mcol"); if (c) showTip(c); });
+  chart.addEventListener("focusout", hideTip);
+  render();
 
-      if (!isAlreadyOpen) {
-        currentItem.classList.add('open');
-        queryButton.setAttribute('aria-expanded', 'true');
-      }
+  // Tabs: live dashboard / Excel screenshot
+  const tabs = $$("[data-tab]");
+  const pick = name => tabs.forEach(t => {
+    const on = t.dataset.tab === name;
+    t.classList.toggle("on", on); t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1;
+    $("#p-" + t.dataset.tab).hidden = !on;
+    hideTip();
+  });
+  tabs.forEach(t => {
+    t.addEventListener("click", () => pick(t.dataset.tab));
+    t.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") { const o = tabs.find(x => x !== t); pick(o.dataset.tab); o.focus(); }
     });
   });
+}
 
-  // Hardware Accelerated Scroll Intersections (Fade-In Elements)
-  var dynamicFadeElements = document.querySelectorAll('.fade-up');
-  if ('IntersectionObserver' in window) {
-    var scrollObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          scrollObserver.unobserve(entry.target);
-        }
-      });
-    }, { 
-      threshold: 0.05, 
-      rootMargin: '0px 0px -20px 0px' 
-    });
-
-    dynamicFadeElements.forEach(function (element) { 
-      scrollObserver.observe(element); 
-    });
-  } else {
-    dynamicFadeElements.forEach(function (element) { 
-      element.classList.add('visible'); 
-    });
+/* ---------- Contact form: delivers the message to your email ---------- */
+const form = $("#form"), status = $("#status"), send = $("#send");
+const setStatus = (msg, kind, extra) => {
+  status.textContent = msg; status.dataset.kind = kind || "";
+  if (extra) {
+    const s = document.createElement("span"); s.className = "status-links";
+    s.innerHTML = extra; status.appendChild(s);
   }
-})();
+};
+const fallbackLinks = (f) => {
+  const body = `${f.msg.value}\n\nFrom: ${f.name.value} (${f.email.value})`;
+  const mail = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Project enquiry from " + f.name.value)}&body=${encodeURIComponent(body)}`;
+  const wa = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hi Sachin, " + f.msg.value)}`;
+  return `<a href="${mail}">Open an email draft</a> or <a href="${wa}" target="_blank" rel="noopener">message me on WhatsApp</a>.`;
+};
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = e.target;
+  if (!f.name.value.trim() || !f.email.validity.valid || !f.msg.value.trim()) {
+    setStatus("Add your name, a valid email and a message, then try again.", "error");
+    return;
+  }
+  if (f.botcheck.checked) return;                       // spam trap
+  if (/your-email@example\.com/.test(CONFIG.email)) {  // owner has not set an email yet
+    setStatus("Setup needed: put your real email in CONFIG.email at the top of script.js.", "error");
+    return;
+  }
+  send.disabled = true; send.textContent = "Sending...";
+  setStatus("Sending your message...", "");
+  const subject = `Project enquiry from ${f.name.value}`;
+  try {
+    let res, data;
+    if (CONFIG.formKey) {                               // Web3Forms
+      res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ access_key: CONFIG.formKey, subject, from_name: "Portfolio website",
+          name: f.name.value, email: f.email.value, replyto: f.email.value, message: f.msg.value })
+      });
+      data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.message || "Send failed");
+    } else {                                            // FormSubmit (no key needed)
+      res = await fetch(`https://formsubmit.co/ajax/${CONFIG.email}`, {
+        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ name: f.name.value, email: f.email.value, message: f.msg.value,
+          _subject: subject, _template: "table", _captcha: "false" })
+      });
+      data = await res.json();
+      if (!res.ok || !(data.success === true || data.success === "true")) throw new Error(data.message || "Send failed");
+    }
+    f.reset();
+    setStatus("Thanks, your message is sent. I'll reply to your email soon.", "ok");
+  } catch (err) {
+    setStatus("The message could not be sent right now.", "error", fallbackLinks(f));
+  } finally {
+    send.disabled = false; send.textContent = "Send message";
+  }
+});
+
+/* ---------- Floating WhatsApp button appears after the hero ---------- */
+const fab = $("#waFab");
+const fabShow = () => fab.classList.toggle("show", scrollY > 500);
+fabShow();
+addEventListener("scroll", fabShow, { passive: true });
+
+$("#year").textContent = new Date().getFullYear();

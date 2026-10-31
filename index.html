@@ -1,467 +1,318 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Sachin Chandra Bhatt — Web Designer & Developer</title>
-  <meta name="description" content="Professional websites for consultants, clinics, coaching institutes, real estate and growing businesses. Built to look premium and convert." />
-  <meta property="og:title" content="Sachin Chandra Bhatt — Web Designer & Developer" />
-  <meta property="og:description" content="Professional websites for consultants, clinics, coaching institutes, real estate and growing businesses." />
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sachin Chandra Bhatt | Web Developer & Excel Data Analyst</title>
+<meta name="description" content="Freelance web developer and Excel data analyst. I build fast business websites and turn sales data into dashboards you can read at a glance.">
+<meta property="og:title" content="Sachin Chandra Bhatt | Web Developer & Excel Data Analyst">
+<meta property="og:description" content="Fast business websites and Excel dashboards. Try three finished projects right on the page.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f5f7f4">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%2312201b%22/><path d=%22M18 20h28M18 32h28M18 44h28M32 14v36%22 stroke=%22%23f2b134%22 stroke-width=%225%22 stroke-linecap=%22round%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Schibsted+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<nav class="navbar" id="navbar">
-  <div class="nav-inner">
-    <a href="#hero" class="brand js-anchor" aria-label="Sachin Chandra Bhatt Homepage">
-      <span class="brand-mark">S</span>
-      <span class="brand-name">Sachin Chandra Bhatt</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#work" class="js-anchor">Work</a></li>
-      <li><a href="#services" class="js-anchor">Services</a></li>
-      <li><a href="#process" class="js-anchor">Process</a></li>
-      <li><a href="#pricing" class="js-anchor">Pricing</a></li>
-      <li><a href="#contact" class="js-anchor">Contact</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta js-anchor">
-      <span>Get Started</span>
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span></span><span></span>
-    </button>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#work" class="js-anchor">Work</a>
-    <a href="#services" class="js-anchor">Services</a>
-    <a href="#process" class="js-anchor">Process</a>
-    <a href="#pricing" class="js-anchor">Pricing</a>
-    <a href="#contact" class="js-anchor">Contact</a>
-    <a href="#contact" class="mobile-cta js-anchor">Get Started →</a>
-  </div>
-</nav>
-
-<section class="hero" id="hero">
-  <div class="hero-top-bar fade-up">
-    <div class="status-pill"><span class="pulse-dot"></span>Available for new projects</div>
-    <span class="location-tag">India ✦ Remote Worldwide</span>
-  </div>
-  <div class="hero-center">
-    <!-- <span class="hero-kicker fade-up" style="--d:.05s">Web Designer & Developer</span> -->
-    <h1 class="hero-h1">
-      <!-- <span class="h1-line fade-up" style="--d:.1s">Professional</span> -->
-      <span class="h1-line h1-italic fade-up" style="--d:.18s">Websites</span>
-      <span class="h1-line fade-up" style="--d:.26s">That Make Your Business Look Worth Trusting</span>
-    </h1>
-    <p class="hero-sub fade-up" style="--d:.34s">
-      I design and develop premium websites for consultants, clinics, coaching institutes, real estate professionals, and service businesses that want to attract more inquiries online.
-    </p>
-    <div class="hero-actions fade-up" style="--d:.42s">
-      <a href="#work" class="btn-primary-hero js-anchor">
-        View My Work
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#contact" class="btn-ghost-hero js-anchor">Get Free Review</a>
-    </div>
-  </div>
-  <!-- <div class="hero-stats-bar fade-up" style="--d:.5s">
-    <div class="hero-stat"><span class="hstat-num">50+</span><span class="hstat-label">Projects Delivered</span></div>
-    <div class="hero-stat-div"></div>
-    <div class="hero-stat"><span class="hstat-num">7–10</span><span class="hstat-label">Day Delivery</span></div>
-    <div class="hero-stat-div"></div>
-    <div class="hero-stat"><span class="hstat-num">100%</span><span class="hstat-label">Responsive Design</span></div>
-    <div class="hero-stat-div"></div>
-    <div class="hero-stat"><span class="hstat-num">India</span><span class="hstat-label">Based & Remote</span></div>
-  </div> -->
-</section>
-
-<div class="marquee-wrap">
-  <div class="marquee-track" id="marquee"></div>
-</div>
-
-<section class="section about" id="about">
-  <!-- <div class="container">
-    <div class="about-grid">
-      <div class="about-left">
-        <div class="section-label fade-up">About Me</div>
-        <h2 class="about-h2 fade-up" style="--d:.08s">Hi, I'm Sachin.<br><em class="serif-em">I build websites<br>that work.</em></h2>
-        <div class="about-body fade-up" style="--d:.16s">
-          <p>I help businesses create modern websites that look professional, build trust, and make it easier for customers to connect with them.</p>
-          <p>Every project focuses on four things: <strong>clarity, performance, user experience,</strong> and <strong>business growth.</strong> I'm not just building websites — I'm building tools that help your business work better online.</p>
-        </div>
-        <div class="about-skills fade-up" style="--d:.24s">
-          <span>Design</span><span>Development</span><span>SEO</span><span>Strategy</span>
-        </div>
-      </div>
-      <div class="about-right fade-up" style="--d:.12s">
-        <div class="portrait-wrap">
-          <div class="portrait-card">
-            <div class="portrait-avatar"><i class="fa-solid fa-code" aria-hidden="true"></i></div>
-            <div class="portrait-meta">
-              <strong>Sachin Chandra Bhatt</strong>
-              <span>Independent Web Designer & Developer</span>
-              <div class="portrait-chips">
-                <div class="p-chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> India</div>
-                <div class="p-chip green"><span class="live-dot"></span> Available</div>
-              </div>
-            </div>
-          </div>
-          <blockquote class="about-quote"><p>"Good design is business strategy made visible."</p></blockquote>
-        </div>
-      </div>
-    </div>
-  </div> -->
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-left">
-        <div class="section-label fade-up">About Me</div>
-        <h2 class="about-h2 fade-up" style="--d:.08s">Hi, I'm Sachin.<br><em class="serif-em">Making your business<br>the obvious choice.</em></h2>
-        <div class="about-body fade-up" style="--d:.16s">
-          <p>I help businesses build a professional online presence through modern, fast, and conversion-focused websites.</p>
-          <p>My approach combines <strong>design, performance, and business strategy</strong> to create websites that not only look premium but also help generate trust and inquiries.</p>
-        </div>
-        
-          <blockquote class="about-quote"><p>"People decide whether to trust your business in seconds. Your website should make those seconds count."</p></blockquote>
-      </div>
-      <div class="about-right fade-up" style="--d:.12s">
-        <div class="portrait-wrap">
-          <div class="portrait-card">
-            <div class="portrait-avatar"><i class="fa-solid fa-code" aria-hidden="true">
-              <img class="portrait-img" src="assets/hello.png" alt="Sachin Chandra Bhatt" />
-            </i></div>
-            <div class="portrait-meta">
-              <strong>Sachin Chandra Bhatt</strong>
-              <span>Independent Web Designer & Developer</span>
-              <div class="portrait-chips">
-                <div class="p-chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> India</div>
-                <div class="p-chip green"><span class="live-dot"></span> Available</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="about-skills fade-up" style="--d:.24s">
-          <span>Design</span><span>Development</span><span>SEO</span><span>Strategy</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section services" id="services">
-  <div class="container">
-    <div class="section-head-split fade-up">
-      <div class="shs-left">
-        <div class="section-label light">Who I Work With</div>
-        <h2 class="light-h2">Businesses<br><em class="serif-em white-em">I Help Grow Online</em></h2>
-      </div>
-      <p class="shs-desc">Every industry has different needs. I specialise in websites that solve real business problems for real clients.</p>
-    </div>
-    <div class="ind-grid">
-      <div class="ind-card fade-up"><div class="ind-num">01</div><div class="ind-icon"><i class="fa-solid fa-building"></i></div><h3>Real Estate</h3><p>Showcase properties, build buyer confidence, generate qualified leads.</p></div>
-      <div class="ind-card fade-up" style="--d:.05s"><div class="ind-num">02</div><div class="ind-icon"><i class="fa-solid fa-stethoscope"></i></div><h3>Clinics & Healthcare</h3><p>A professional presence that earns patient trust and drives bookings.</p></div>
-      <div class="ind-card fade-up" style="--d:.1s"><div class="ind-num">03</div><div class="ind-icon"><i class="fa-solid fa-graduation-cap"></i></div><h3>Coaching Institutes</h3><p>Attract serious students with a modern, credible online presence.</p></div>
-      <div class="ind-card fade-up" style="--d:.15s"><div class="ind-num">04</div><div class="ind-icon"><i class="fa-solid fa-plane-departure"></i></div><h3>Immigration Consultants</h3><p>Help clients trust you with their most important life decisions.</p></div>
-      <div class="ind-card fade-up" style="--d:.2s"><div class="ind-num">05</div><div class="ind-icon"><i class="fa-solid fa-couch"></i></div><h3>Interior Designers</h3><p>Display your portfolio beautifully to attract premium clients.</p></div>
-      <div class="ind-card fade-up" style="--d:.25s"><div class="ind-num">06</div><div class="ind-icon"><i class="fa-solid fa-briefcase"></i></div><h3>Professional Services</h3><p>Stand out with clarity and credibility in a competitive market.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section work" id="work">
-  <div class="container">
-    <div class="section-head-split fade-up">
-      <div class="shs-left">
-        <div class="section-label">Featured Work</div>
-        <h2>Projects Designed<br><em class="serif-em">to Perform</em></h2>
-      </div>
-      <p class="shs-desc dark-desc">Concept projects built to show what modern business websites can look like.</p>
-    </div>
-  </div>
-
-  <div class="work-list">
-    <div class="work-item fade-up">
-      <div class="container work-row">
-        <div class="work-visual">
-          <figure class="work-image"><img src="assets/projects/realty.png?auto=format&fit=crop&w=1400&q=80" alt="Luxury Realty Portfolio Preview" loading="lazy"/>
-          </figure>
-          <div class="work-float-tag">Luxury Property</div>
-        </div>
-        <div class="work-text">
-          <div class="work-index">01</div>
-          <span class="work-cat">Real Estate</span>
-          <h3>Luxury Realty</h3>
-          <p>A high-end real estate website designed to showcase luxury properties and generate qualified leads.</p>
-          <a href="#contact" class="work-cta js-anchor">Let's Talk & make for you <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="work-item fade-up">
-      <div class="container work-row work-row-rev">
-        <div class="work-visual">
-          <figure class="work-image"><img src="assets/projects/prime.png?auto=format&fit=crop&w=1400&q=80" alt="Prime Clinic Portfolio Preview" loading="lazy"/></figure>
-          <div class="work-float-tag">Healthcare</div>
-        </div>
-        <div class="work-text">
-          <div class="work-index">02</div>
-          <span class="work-cat">Healthcare</span>
-          <h3>Prime Clinic</h3>
-          <p>A clean, trust-focused clinic website that makes booking appointments effortless for patients.</p>
-          <a href="#contact" class="work-cta js-anchor">Let's Talk & make for you <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="work-item fade-up">
-      <div class="container work-row">
-        <div class="work-visual">
-          <figure class="work-image"><img src="assets/projects/elite.png?auto=format&fit=crop&w=1400&q=80" alt="Elite Academy Portfolio Preview" loading="lazy"/></figure>
-          <div class="work-float-tag">Education</div>
-        </div>
-        <div class="work-text">
-          <div class="work-index">03</div>
-          <span class="work-cat">Education</span>
-          <h3>Elite Academy</h3>
-          <p>A coaching institute website built to attract serious students and communicate credibility instantly.</p>
-          <a href="#contact" class="work-cta js-anchor">Let's Talk & make for you <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="work-item fade-up">
-      <div class="container work-row work-row-rev">
-        <div class="work-visual">
-          <figure class="work-image"><img src="assets/projects/global.png?auto=format&fit=crop&w=1400&q=80" alt="Global Path Portfolio Preview" loading="lazy"/></figure>
-          <div class="work-float-tag">Consultancy</div>
-        </div>
-        <div class="work-text">
-          <div class="work-index">04</div>
-          <span class="work-cat">Immigration</span>
-          <h3>Global Path</h3>
-          <p>A consultancy website that builds trust and clearly guides clients through life-changing decisions.</p>
-          <a href="#contact" class="work-cta js-anchor">Let's Talk & make for you <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <div class="work-item fade-up">
-      <div class="container work-row">
-        <div class="work-visual">
-          <figure class="work-image"><img src="assets/projects/studio.png?auto=format&fit=crop&w=1400&q=80" alt="Studio Interior Portfolio Preview" loading="lazy"/></figure>
-          <div class="work-float-tag">Interiors</div>
-        </div>
-        <div class="work-text">
-          <div class="work-index">05</div>
-          <span class="work-cat">Interior Design</span>
-          <h3>Studio Interior</h3>
-          <p>A portfolio website that lets the design work speak — clean, spacious, and undeniably premium.</p>
-          <a href="#contact" class="work-cta js-anchor">Let's Talk & make for you <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section why">
-  <div class="container">
-    <div class="section-label light fade-up">The Difference</div>
-    <h2 class="light-h2 why-h2 fade-up" style="--d:.08s">What You Get When<br><em class="serif-em white-em">We Work Together</em></h2>
-    <div class="why-grid">
-      <div class="why-card fade-up"><div class="why-head"><span class="why-num">01</span><i class="fa-solid fa-chart-line"></i></div><h3>Business First</h3><p>Every design decision is made with your business goals in mind, not just aesthetics.</p></div>
-      <div class="why-card fade-up" style="--d:.06s"><div class="why-head"><span class="why-num">02</span><i class="fa-solid fa-wand-magic-sparkles"></i></div><h3>Modern Design</h3><p>Clean, professional layouts that reflect the quality of your business and brand.</p></div>
-      <div class="why-card fade-up" style="--d:.12s"><div class="why-head"><span class="why-num">03</span><i class="fa-solid fa-bolt"></i></div><h3>Fast Delivery</h3><p>Most websites are ready within 7–10 business days so you don't wait around.</p></div>
-      <div class="why-card fade-up" style="--d:.18s"><div class="why-head"><span class="why-num">04</span><i class="fa-solid fa-mobile-screen"></i></div><h3>Mobile Optimized</h3><p>Your website will look and perform perfectly on every device, every single time.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section process" id="process">
-  <div class="container">
-    <div class="section-label fade-up">How It Works</div>
-    <h2 class="process-h2 fade-up" style="--d:.08s">From First Call<br><em class="serif-em">to Live Website</em></h2>
-    <div class="process-steps">
-      <div class="process-step fade-up"><div class="ps-num">01</div><div class="ps-line"></div><div class="ps-body"><h3>Discovery</h3><p>We discuss your business, goals, target audience, and requirements over a quick call.</p></div></div>
-      <div class="process-step fade-up" style="--d:.06s"><div class="ps-num">02</div><div class="ps-line"></div><div class="ps-body"><h3>Strategy</h3><p>I plan the website structure, content flow, and design direction tailored to your audience.</p></div></div>
-      <div class="process-step fade-up" style="--d:.12s"><div class="ps-num">03</div><div class="ps-line"></div><div class="ps-body"><h3>Design & Development</h3><p>I build your complete website with full focus on performance, clarity, and conversion.</p></div></div>
-      <div class="process-step fade-up" style="--d:.18s"><div class="ps-num">04</div><div class="ps-line"></div><div class="ps-body"><h3>Launch</h3><p>Your website goes live. I handle all technical setup and ensure everything runs perfectly.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="services">
-  <div class="container">
-    
-    <!-- Section Header Split -->
-    <div class="section-head-split">
-      <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); color: #ffffff; font-weight: 600; line-height: 1.2; margin: 0;">
-        Why Businesses Invest<br>In A Better Website
-      </h2>
-      <p class="shs-desc">
-        A premium website isn't an expense—it's a core asset. It acts as your most reliable growth tool, operating around the clock to capture attention and build authority.
-      </p>
-    </div>
-
-    <!-- 4-Card Connected Grid -->
-    <div class="ind-grid">
-      
-      <!-- Card 01 -->
-      <div class="ind-card">
-        <span class="ind-num">01 // CONVERSION</span>
-        <div class="ind-icon">
-          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-        </div>
-        <h3>Build Trust</h3>
-        <p>A professional website creates a stronger first impression, instantly validating your business credibility.</p>
-      </div>
-
-      <!-- Card 02 -->
-      <div class="ind-card">
-        <span class="ind-num">02 // GROWTH</span>
-        <div class="ind-icon">
-          <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
-        </div>
-        <h3>Generate More Inquiries</h3>
-        <p>Strategic call-to-actions make it frictionless and simple for potential customers to get in touch with you.</p>
-      </div>
-
-      <!-- Card 03 -->
-      <div class="ind-card">
-        <span class="ind-num">03 // STRATEGY</span>
-        <div class="ind-icon">
-          <i class="fa-solid fa-bolt" aria-hidden="true"></i>
-        </div>
-        <h3>Stand Out From Competitors</h3>
-        <p>While most local businesses still rely on slow, outdated layouts, a modern site positions you as the clear market leader.</p>
-      </div>
-
-      <!-- Card 04 -->
-      <div class="ind-card">
-        <span class="ind-num">04 // AUTOMATION</span>
-        <div class="ind-icon">
-          <i class="fa-solid fa-clock" aria-hidden="true"></i>
-        </div>
-        <h3>Work 24/7</h3>
-        <p>Your digital storefront keeps educating leads and representing your brand flawlessly even while you are offline.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="section pricing" id="pricing">
-  <div class="container">
-    <div class="section-label light fade-up">Pricing</div>
-    <h2 class="light-h2 pricing-h2 fade-up" style="--d:.08s">Simple, Transparent<br><em class="serif-em white-em">Pricing</em></h2>
-    <p class="pricing-sub fade-up" style="--d:.16s">No hidden charges. No complicated quotes. Just clear value.</p>
-    <div class="pricing-grid">
-      <div class="price-card fade-up">
-        <div class="pc-label">Essential Website</div>
-        <p class="pc-desc">Perfect for consultants, coaches & clinics getting started online.</p>
-        <div class="pc-price"><span class="pc-currency">₹</span><span class="pc-amount">9,999</span></div>
-        <ul class="pc-features">
-          <li><i class="fa-solid fa-check"></i>Up to 5 Pages</li>
-          <li><i class="fa-solid fa-check"></i>Responsive Design</li>
-          <li><i class="fa-solid fa-check"></i>Contact Form</li>
-          <li><i class="fa-solid fa-check"></i>WhatsApp Integration</li>
-          <li><i class="fa-solid fa-check"></i>Google Maps Embed</li>
-          <li><i class="fa-solid fa-check"></i>Basic SEO Setup</li>
-          <li><i class="fa-solid fa-check"></i>14 Days Support</li>
-        </ul>
-        <a href="#contact" class="pc-btn js-anchor">Get Started →</a>
-      </div>
-      <div class="price-card price-card-featured fade-up" style="--d:.1s">
-        <div class="pc-badge">MOST POPULAR</div>
-        <div class="pc-label white-label">Business Growth Website</div>
-        <p class="pc-desc white-desc">For businesses ready to grow faster with a stronger online presence.</p>
-        <div class="pc-price"><span class="pc-currency white-c">₹</span><span class="pc-amount white-a">14,999</span></div>
-        <ul class="pc-features white-features">
-          <li><i class="fa-solid fa-check"></i>Up to 8 Pages</li>
-          <li><i class="fa-solid fa-check"></i>Everything in Professional</li>
-          <li><i class="fa-solid fa-check"></i>Blog Setup</li>
-          <li><i class="fa-solid fa-check"></i>Advanced Contact Forms</li>
-          <li><i class="fa-solid fa-check"></i>Enhanced SEO Structure</li>
-          <li><i class="fa-solid fa-check"></i>Priority Support</li>
-          <li><i class="fa-solid fa-check"></i>30 Days Support</li>
-        </ul>
-        <a href="#contact" class="pc-btn pc-btn-accent js-anchor">Get Started →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section faq" id="faq">
-  <div class="container faq-wrap">
-    <div class="faq-left">
-      <div class="section-label fade-up">FAQ</div>
-      <h2 class="faq-h2 fade-up" style="--d:.08s">Questions<br>You Might<br><em class="serif-em">Have</em></h2>
-    </div>
-    <div class="faq-right fade-up" style="--d:.12s" id="faqList">
-      <div class="faq-item open">
-        <button class="faq-q" aria-expanded="true"><span>How long does it take to build my website?</span><div class="faq-icon"><span></span><span></span></div></button>
-        <div class="faq-a"><p>Most projects are completed within 7–10 business days after I receive your content (text, images, logo). Complex projects may take up to 14 days.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>Can I request changes after the website is built?</span><div class="faq-icon"><span></span><span></span></div></button>
-        <div class="faq-a"><p>Yes. I offer revision rounds during development and post-launch support for any fixes or small updates — 14 or 30 days depending on your plan.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>Is SEO included in the package?</span><div class="faq-icon"><span></span><span></span></div></button>
-        <div class="faq-a"><p>Yes. Basic SEO setup is included — this covers page titles, meta descriptions, image optimisation, and site speed setup to help you rank on Google.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>Do I need to arrange my own hosting and domain?</span><div class="faq-icon"><span></span><span></span></div></button>
-        <div class="faq-a"><p>Yes, you'll need a domain and hosting. I'll guide you on exactly what to buy and from where. Technical setup is handled as part of my service.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false"><span>What do you need from me to get started?</span><div class="faq-icon"><span></span><span></span></div></button>
-        <div class="faq-a"><p>Your logo, brand colors, the text content you want on the website, and reference websites you like. I'll walk you through everything else step by step.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="final-cta" id="contact">
-  <div class="container cta-inner">
-    <div class="cta-tag fade-up">Get In Touch</div>
-    <h2 class="cta-h2 fade-up" style="--d:.08s">Ready To Build A<br><em class="serif-em">Better Online<br>Presence?</em></h2>
-    <p class="cta-sub fade-up" style="--d:.18s">Let's discuss your business and create a website that helps you stand out online.</p>
-    <div class="cta-actions fade-up" style="--d:.26s">
-      <a href="https://wa.me/8178464397" class="cta-btn-white" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> WhatsApp Me</a>
-      <a href="mailto:sachin51565@gmail.com" class="cta-btn-outline">Book a Free Consultation</a>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <div class="footer-name">Sachin Chandra Bhatt</div>
-      <p>Independent Web Designer & Developer</p>
-    </div>
-    <nav class="footer-nav" aria-label="Footer Navigation">
-      <a href="#work" class="js-anchor">Work</a>
-      <a href="#services" class="js-anchor">Services</a>
-      <a href="#pricing" class="js-anchor">Pricing</a>
-      <a href="#contact" class="js-anchor">Contact</a>
+<header class="nav" id="top">
+  <div class="wrap nav-in">
+    <a class="logo" href="#home" aria-label="Sachin Chandra Bhatt, home"><span class="logo-mark" aria-hidden="true">SB</span><span class="logo-name">Sachin Chandra Bhatt</span></a>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="links"><span></span><span></span></button>
+    <nav id="links" class="links" aria-label="Main">
+      <a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <a class="btn btn-blue" href="#contact">Hire me</a>
     </nav>
-    <div class="footer-social">
-      <a href="mailto:sachin51565@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-      <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-      <a href="https://wa.me/8178464397" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="fbar" aria-hidden="true">
+      <span class="namebox">A1</span><span class="fx">fx</span>
+      <span class="fbar-text">Web developer + Excel data analyst, open to freelance projects</span>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="sel">
+          <i class="h h1" aria-hidden="true"></i><i class="h h2" aria-hidden="true"></i><i class="h h3" aria-hidden="true"></i><i class="h h4" aria-hidden="true"></i>
+          <h1>Websites that earn trust. Dashboards that explain the numbers.</h1>
+        </div>
+        <p class="lede">I'm Sachin. I build clean, fast websites for small businesses, and I turn spreadsheets full of orders and sales into dashboards an owner can read in a minute.</p>
+        <div class="actions">
+          <a class="btn btn-blue" href="#work">See my work</a>
+          <a class="btn btn-line" data-contact="email" href="#contact">Email me</a>
+        </div>
+        <p class="hero-note"><span class="dot" aria-hidden="true"></span>Open to new freelance projects</p>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="sheet">
+          <div class="sheet-top"><i></i><i></i><i></i><span>RetailPulse_Sales_Dashboard.xlsx</span></div>
+          <div class="cols"><span></span><span>A</span><span>B</span><span>C</span></div>
+          <div class="kpis">
+            <div class="kpi"><small>Total revenue</small><b><span data-count="2208496" data-format="inr" data-prefix="₹">₹22,08,496</span></b></div>
+            <div class="kpi"><small>Orders</small><b><span data-count="500">500</span></b></div>
+            <div class="kpi"><small>Profit margin</small><b><span data-count="39.0" data-decimals="1" data-suffix="%">39.0%</span></b></div>
+          </div>
+          <div class="chart">
+            <div class="bars">
+              <i style="--h:46%"></i><i style="--h:86%"></i><i style="--h:71%"></i><i style="--h:61%"></i><i style="--h:44%"></i><i style="--h:75%"></i><i style="--h:96%"></i><i style="--h:87%"></i><i style="--h:51%"></i><i style="--h:59%"></i><i style="--h:78%"></i><i class="hi" style="--h:100%"></i>
+            </div>
+            <div class="months"><span>Oct</span><span>Jan</span><span>Apr</span><span>Jul</span><span>Sep</span></div>
+          </div>
+          <p class="sheet-note">Monthly revenue, Oct 2025 to Sep 2026. Sample data.</p>
+          <div class="tabs-row"><span>Sales_Data</span><span>Analysis</span><span class="cur">Dashboard</span></div>
+        </div>
+        <div class="mini-site">
+          <div class="sheet-top"><i></i><i></i><i></i><span>estateease</span></div>
+          <div class="mini-body">
+            <svg viewBox="0 0 64 64" class="arch"><path d="M14 54V30a18 18 0 0 1 36 0v24z" fill="none" stroke="#f2b134" stroke-width="5" stroke-linejoin="round"/><path d="M25 54V34a7 7 0 0 1 14 0v20" fill="none" stroke="#f2b134" stroke-width="5"/></svg>
+            <div><b></b><b></b><b class="s"></b></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="container footer-bottom">
-    <span>© <span id="year"></span> Sachin Chandra Bhatt</span>
-    <span>Built with care in India</span>
+</section>
+
+<!-- WORK -->
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="head">
+      <h2>Three projects, built from start to finish</h2>
+      <p>All three use fictional businesses and sample data, so you can click around freely. They show how I would approach yours.</p>
+      <nav class="jump" aria-label="Jump to a project">
+        <a href="#estateease">Real estate website</a><a href="#studiomitti">Interior design website</a><a href="#retailpulse">Excel sales dashboard</a>
+      </nav>
+    </div>
+
+    <article class="case" id="estateease">
+      <div class="case-media">
+        <div class="frame web">
+          <div class="frame-top"><i></i><i></i><i></i><span>estateease.sample</span>
+            <div class="seg" role="group" aria-label="Preview size">
+              <button type="button" class="seg-btn on" data-mode="desktop" aria-pressed="true">Desktop</button>
+              <button type="button" class="seg-btn" data-mode="phone" aria-pressed="false">Phone</button>
+            </div>
+          </div>
+          <div class="screen" id="screen" data-mode="desktop">
+            <iframe src="projects/estateease/index.html" title="EstateEase website preview" loading="lazy"></iframe>
+          </div>
+        </div>
+        <p class="media-note">Try the Phone view to see the same site re-arrange itself for a small screen.</p>
+      </div>
+      <div class="case-text">
+        <span class="chip web">Website</span>
+        <h3>EstateEase, a real estate agency site</h3>
+        <p>A complete property website. Visitors search and filter homes, compare them side by side, estimate a monthly loan payment and send an enquiry to the agent on WhatsApp.</p>
+        <ul class="ticks web">
+          <li>Search and filters by city, category and bedrooms</li>
+          <li>Side-by-side property comparison</li>
+          <li>Loan payment calculator with sliders</li>
+          <li>Light and dark mode, prices in rupees or dollars</li>
+          <li>Works on phones, tablets and desktops</li>
+        </ul>
+        <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+        <div class="actions">
+          <a class="btn btn-blue" href="projects/estateease/index.html" target="_blank" rel="noopener">Open live demo</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="case flip" id="studiomitti">
+      <div class="case-media">
+        <div class="frame web">
+          <div class="frame-top"><i></i><i></i><i></i><span>studiomitti.sample</span>
+            <div class="seg" role="group" aria-label="Preview size">
+              <button type="button" class="seg-btn on" data-mode="desktop" aria-pressed="true">Desktop</button>
+              <button type="button" class="seg-btn" data-mode="phone" aria-pressed="false">Phone</button>
+            </div>
+          </div>
+          <div class="screen" data-mode="desktop">
+            <iframe src="projects/studiomitti/index.html" title="Studio Mitti website preview" loading="lazy"></iframe>
+          </div>
+        </div>
+        <p class="media-note">In the Phone view you can scroll and tap the site like a real phone. Try the palette buttons at the top.</p>
+      </div>
+      <div class="case-text">
+        <span class="chip web">Website</span>
+        <h3>Studio Mitti, an interior design studio site</h3>
+        <p>A studio website that lets visitors try ideas before they call. They repaint an illustrated living room with different palettes, browse projects, estimate a budget and book a consultation on WhatsApp.</p>
+        <ul class="ticks web">
+          <li>Palette picker that repaints a room, with a lights-off mode</li>
+          <li>Project gallery with room filters and detail pop-ups</li>
+          <li>Budget estimator by carpet area and finish level</li>
+          <li>Light and dark theme, FAQ and WhatsApp booking form</li>
+          <li>Works on phones, tablets and desktops</li>
+        </ul>
+        <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+        <div class="actions">
+          <a class="btn btn-blue" href="projects/studiomitti/index.html" target="_blank" rel="noopener">Open live demo</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="case stack" id="retailpulse">
+      <div class="stack-head">
+        <div>
+          <span class="chip data">Excel dashboard</span>
+          <h3>RetailPulse, a sales dashboard</h3>
+          <p>A year of 500 orders turned into one screen. Pick a category, channel or city and every number, chart and written insight updates. This is the same dashboard I built in Excel, rebuilt here so you can try it.</p>
+        </div>
+        <div>
+          <ul class="ticks data">
+            <li>Filters for category, channel and city</li>
+            <li>Plain-language insights written from the numbers</li>
+            <li>Trends, top products and cities at a glance</li>
+            <li>Built in Excel with live formulas, nothing typed by hand</li>
+          </ul>
+          <ul class="tags"><li>Excel</li><li>Formulas</li><li>Charts</li><li>Conditional formatting</li></ul>
+        </div>
+      </div>
+
+      <div class="frame data dash">
+        <div class="frame-top"><i></i><i></i><i></i><span>RetailPulse</span>
+          <div class="seg" role="tablist" aria-label="Dashboard view">
+            <button type="button" class="seg-btn on" role="tab" id="t-live" aria-controls="p-live" aria-selected="true" data-tab="live">Try it live</button>
+            <button type="button" class="seg-btn" role="tab" id="t-xl" aria-controls="p-xl" aria-selected="false" data-tab="xl" tabindex="-1">The Excel original</button>
+          </div>
+        </div>
+
+        <div class="panel" id="p-live" role="tabpanel" aria-labelledby="t-live">
+          <div class="filters">
+            <div class="fgroup" role="group" aria-label="Category" id="fCat"><span class="flabel">Category</span></div>
+            <div class="fgroup" role="group" aria-label="Channel" id="fChan"><span class="flabel">Channel</span></div>
+            <div class="fgroup"><label class="flabel" for="fCity">City</label><select id="fCity"></select></div>
+            <button type="button" class="reset" id="fReset">Reset</button>
+          </div>
+
+          <dl class="kpi-row" aria-live="polite">
+            <div><dt>Total revenue</dt><dd id="kRev"></dd></div>
+            <div><dt>Total profit</dt><dd id="kProfit"></dd></div>
+            <div><dt>Orders</dt><dd id="kOrders"></dd></div>
+            <div><dt>Profit margin</dt><dd id="kMargin"></dd></div>
+          </dl>
+
+          <div class="dash-grid">
+            <section class="dcard wide">
+              <div class="dcard-head">
+                <h4>Monthly revenue</h4>
+                <ul class="legend"><li><i class="sw p"></i>Profit</li><li><i class="sw c"></i>Cost</li></ul>
+              </div>
+              <div class="mchart" id="mChart"></div>
+            </section>
+            <section class="dcard"><h4>Cities by revenue</h4><div class="hbars" id="cityBars"></div></section>
+            <section class="dcard"><h4>Top 5 products</h4><div class="hbars" id="prodBars"></div></section>
+          </div>
+
+          <div class="dash-foot">
+            <ul class="insights" id="insights" aria-live="polite"></ul>
+            <p class="dash-note">The 500 orders are fictional sample data, Oct 2025 to Sep 2026. Hover a bar for its numbers.</p>
+          </div>
+        </div>
+
+        <div class="panel" id="p-xl" role="tabpanel" aria-labelledby="t-xl" hidden>
+          <img src="assets/retailpulse-dashboard.jpg" width="1534" height="1331" loading="lazy" alt="The original RetailPulse Excel dashboard showing total revenue of ₹22,08,496, 500 orders, a 39% profit margin, written insights, and charts for monthly revenue, days of the week, categories, cities and top products.">
+        </div>
+      </div>
+      <div class="tip" id="tip" role="tooltip" hidden></div>
+    </article>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="block tint" id="services">
+  <div class="wrap">
+    <div class="head">
+      <h2>What I can build for you</h2>
+    </div>
+    <div class="cells">
+      <article class="cell">
+        <h3>Business websites</h3>
+        <p>Fast, mobile-friendly sites for shops, agencies and local businesses, with enquiry forms that open straight into WhatsApp or email.</p>
+        <small>Good for a first website or a redesign</small>
+      </article>
+      <article class="cell">
+        <h3>Excel dashboards</h3>
+        <p>Sales, stock or expense reports with filters and charts, so you can see what is selling and what is not.</p>
+        <small>Good for owners who live in spreadsheets</small>
+      </article>
+      <article class="cell">
+        <h3>Data clean-up and reports</h3>
+        <p>Messy sheets sorted, duplicates removed and formats fixed, then summarised into a report you can send on.</p>
+        <small>Good for monthly or weekly reporting</small>
+      </article>
+    </div>
+
+    <h3 class="sub">How a project runs</h3>
+    <ol class="steps">
+      <li><span class="n">1</span><div><h4>We talk</h4><p>You tell me what you need. I reply with the scope, the price and a delivery date.</p></div></li>
+      <li><span class="n">2</span><div><h4>I build</h4><p>You see work in progress, so there are no surprises at the end.</p></div></li>
+      <li><span class="n">3</span><div><h4>You review</h4><p>I make the changes we agreed on, then hand over every file.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="block" id="about">
+  <div class="wrap about">
+    <div>
+      <h2>I built the projects first, then wrote this page</h2>
+      <p>I'm Sachin Chandra Bhatt, a web developer and Excel data analyst just starting out. I don't have a long client list yet, so I built three complete projects to show how I work: planned, detailed and finished.</p>
+      <p>I'll tell you plainly what is possible within your budget, and I ask my questions before I start, not after.</p>
+    </div>
+    <table class="skills">
+      <caption class="sr">My skills</caption>
+      <tbody>
+        <tr><th scope="row">Websites</th><td>HTML, CSS, JavaScript, responsive design</td></tr>
+        <tr><th scope="row">Data</th><td>Excel formulas and charts, SQL, Power BI</td></tr>
+        <tr><th scope="row">Learning</th><td>Python for data work</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="block dark" id="contact">
+  <div class="wrap contact">
+    <div>
+      <h2>Tell me what you need</h2>
+      <p>Say what you want built, when you need it and a rough budget. I'll reply with the next steps.</p>
+      <div class="actions">
+        <a class="btn btn-amber" data-contact="email" href="#contact">Email me</a>
+        <a class="btn btn-line-light" data-contact="whatsapp" href="#contact" target="_blank" rel="noopener">Message on WhatsApp</a>
+      </div>
+    </div>
+    <form id="form" novalidate>
+      <label for="name">Name</label><input id="name" name="name" autocomplete="name" required>
+      <label for="email">Your email</label><input id="email" name="email" type="email" autocomplete="email" required>
+      <label for="msg">What do you need?</label><textarea id="msg" name="msg" rows="4" required></textarea>
+      <input type="checkbox" name="botcheck" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn-blue" type="submit" id="send">Send message</button>
+      <p class="fine" id="status" role="status">Your message goes straight to my email.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <strong>Sachin Chandra Bhatt</strong>
+    <nav aria-label="Footer"><a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+    <span><a data-contact="github" href="#" target="_blank" rel="noopener">GitHub</a><a data-contact="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a></span>
+    <small>&copy; <span id="year"></span> Sachin Chandra Bhatt. EstateEase, Studio Mitti and RetailPulse are fictional sample projects.</small>
   </div>
 </footer>
-
+<a class="wa-fab" id="waFab" data-contact="whatsapp" href="#contact" target="_blank" rel="noopener" aria-label="Message me on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21l1.7-5A8.500 8.500 0 1 1 8 19.300z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.800c0 3 2.700 5.800 5.800 5.800l1.200-1.400-2-1-.9.800c-.9-.4-1.700-1.200-2.100-2.100l.8-.9-1-2z" fill="currentColor"/></svg></a>
+<script src="data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
