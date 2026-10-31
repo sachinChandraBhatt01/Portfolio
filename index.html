@@ -48,7 +48,7 @@
         <p class="lede">I'm Sachin. I build clean, fast websites for small businesses, and I turn spreadsheets full of orders and sales into dashboards an owner can read in a minute.</p>
         <div class="actions">
           <a class="btn btn-blue" href="#work">See my work</a>
-          <a class="btn btn-line" data-contact="email" href="#contact">Email me</a>
+          <a class="btn btn-line" data-contact="whatsapp" href="#contact" target="_blank" rel="noopener">Chat on WhatsApp</a>
         </div>
         <p class="hero-note"><span class="dot" aria-hidden="true"></span>Open to new freelance projects</p>
       </div>
@@ -237,7 +237,7 @@
     <div class="cells">
       <article class="cell">
         <h3>Business websites</h3>
-        <p>Fast, mobile-friendly sites for shops, agencies and local businesses, with enquiry forms that open straight into WhatsApp or email.</p>
+        <p>Fast, mobile-friendly sites for shops, agencies and local businesses, with enquiry forms that open straight into WhatsApp.</p>
         <small>Good for a first website or a redesign</small>
       </article>
       <article class="cell">
@@ -285,19 +285,23 @@
   <div class="wrap contact">
     <div>
       <h2>Tell me what you need</h2>
-      <p>Say what you want built, when you need it and a rough budget. I'll reply with the next steps.</p>
+      <p>Say what you want built, when you need it and a rough budget. Your message opens in WhatsApp, ready to send, and I'll reply there with the next steps.</p>
       <div class="actions">
-        <a class="btn btn-amber" data-contact="email" href="#contact">Email me</a>
-        <a class="btn btn-line-light" data-contact="whatsapp" href="#contact" target="_blank" rel="noopener">Message on WhatsApp</a>
+        <a class="btn btn-amber" data-contact="whatsapp" href="#contact" target="_blank" rel="noopener">Chat on WhatsApp</a>
       </div>
     </div>
     <form id="form" novalidate>
-      <label for="name">Name</label><input id="name" name="name" autocomplete="name" required>
-      <label for="email">Your email</label><input id="email" name="email" type="email" autocomplete="email" required>
-      <label for="msg">What do you need?</label><textarea id="msg" name="msg" rows="4" required></textarea>
-      <input type="checkbox" name="botcheck" class="trap" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn btn-blue" type="submit" id="send">Send message</button>
-      <p class="fine" id="status" role="status">Your message goes straight to my email.</p>
+      <label for="name">Your name</label><input id="name" name="name" autocomplete="name" maxlength="80" required>
+      <label for="service">What do you need?</label>
+      <select id="service" name="service">
+        <option>A business website</option>
+        <option>An Excel dashboard</option>
+        <option>Data cleaning and reports</option>
+        <option>Something else</option>
+      </select>
+      <label for="msg">Tell me a bit more</label><textarea id="msg" name="msg" rows="4" maxlength="1000" placeholder="What you want built, when you need it, rough budget" required></textarea>
+      <button class="btn btn-blue" type="submit" id="send">Continue on WhatsApp</button>
+      <p class="fine" id="status" role="status">This opens WhatsApp with your message ready. Nothing is sent until you press Send there.</p>
     </form>
   </div>
 </section>
@@ -307,7 +311,7 @@
   <div class="wrap foot">
     <strong>Sachin Chandra Bhatt</strong>
     <nav aria-label="Footer"><a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
-    <span><a data-contact="github" href="#" target="_blank" rel="noopener">GitHub</a><a data-contact="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a></span>
+    <!-- <span><a data-contact="github" href="#" target="_blank" rel="noopener">GitHub</a><a data-contact="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a></span> -->
     <small>&copy; <span id="year"></span> Sachin Chandra Bhatt. EstateEase, Studio Mitti and RetailPulse are fictional sample projects.</small>
   </div>
 </footer>

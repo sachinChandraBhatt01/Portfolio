@@ -292,7 +292,10 @@ select{font:500 .88rem var(--body);padding:6px 10px;border:1px solid var(--grid)
 .tip strong{font:700 .9rem var(--head);margin-bottom:2px}
 .tip b{float:right;margin-left:14px;font-variant-numeric:tabular-nums}
 /* form */
-.trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+input[aria-invalid=true],textarea[aria-invalid=true]{border-color:#b3261e;outline-color:#b3261e}
+.status-links button{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--blue-d);text-decoration:underline;cursor:pointer}
+form select{width:100%;padding:11px 13px;font:inherit;border:1px solid #b7c3bb;border-radius:6px;background:#fff;color:var(--ink)}
+form select:focus{outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
 .fine[data-kind=ok]{color:var(--green)!important;font-weight:600}
 .fine[data-kind=error]{color:#b3261e!important;font-weight:600}
 form .btn:disabled{opacity:.7;cursor:wait;transform:none}

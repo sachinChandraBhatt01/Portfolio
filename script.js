@@ -1,11 +1,8 @@
 /* ===== EDIT YOUR DETAILS HERE (the only place you need to change) ===== */
 const CONFIG = {
-  email: "sachin215@amityonline.com",   // your real email: contact form messages are delivered here
-  whatsapp: "910000000000",          // country code + number, digits only (e.g. 919876543210)
-  github: "https://github.com/your-username",
-  linkedin: "https://www.linkedin.com/in/your-username",
-  // Optional: a free Web3Forms key (web3forms.com). Leave "" to use FormSubmit, which needs no key.
-  formKey: ""
+  whatsapp: "+918178464397",          // country code + number, digits only (e.g. 919876543210)
+  github: "https://github.com/sachinChandraBhatt01/",
+  // linkedin: "https://www.linkedin.com/in/your-username"
 };
 /* ====================================================================== */
 
@@ -15,10 +12,9 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------- Contact links ---------- */
 const targets = {
-  email: `mailto:${CONFIG.email}`,
-  whatsapp: `https://wa.me/${CONFIG.whatsapp}`,
+  whatsapp: `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hi Sachin, I found your portfolio and would like to talk about a project.")}`,
   github: CONFIG.github,
-  linkedin: CONFIG.linkedin
+  // linkedin: CONFIG.linkedin
 };
 $$("[data-contact]").forEach(a => (a.href = targets[a.dataset.contact]));
 
@@ -209,64 +205,88 @@ if (typeof RP !== "undefined" && $("#mChart")) {
   });
 }
 
-/* ---------- Contact form: delivers the message to your email ---------- */
-const form = $("#form"), status = $("#status"), send = $("#send");
-const setStatus = (msg, kind, extra) => {
-  status.textContent = msg; status.dataset.kind = kind || "";
-  if (extra) {
-    const s = document.createElement("span"); s.className = "status-links";
-    s.innerHTML = extra; status.appendChild(s);
-  }
-};
-const fallbackLinks = (f) => {
-  const body = `${f.msg.value}\n\nFrom: ${f.name.value} (${f.email.value})`;
-  const mail = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Project enquiry from " + f.name.value)}&body=${encodeURIComponent(body)}`;
-  const wa = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hi Sachin, " + f.msg.value)}`;
-  return `<a href="${mail}">Open an email draft</a> or <a href="${wa}" target="_blank" rel="noopener">message me on WhatsApp</a>.`;
-};
+/* ---------- Contact form: opens WhatsApp with your message ready to send ---------- */
+(() => {
+  const form = $("#form");
+  if (!form) return;
 
-form.addEventListener("submit", async e => {
-  e.preventDefault();
-  const f = e.target;
-  if (!f.name.value.trim() || !f.email.validity.valid || !f.msg.value.trim()) {
-    setStatus("Add your name, a valid email and a message, then try again.", "error");
-    return;
-  }
-  if (f.botcheck.checked) return;                       // spam trap
-  if (/your-email@example\.com/.test(CONFIG.email)) {  // owner has not set an email yet
-    setStatus("Setup needed: put your real email in CONFIG.email at the top of script.js.", "error");
-    return;
-  }
-  send.disabled = true; send.textContent = "Sending...";
-  setStatus("Sending your message...", "");
-  const subject = `Project enquiry from ${f.name.value}`;
-  try {
-    let res, data;
-    if (CONFIG.formKey) {                               // Web3Forms
-      res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ access_key: CONFIG.formKey, subject, from_name: "Portfolio website",
-          name: f.name.value, email: f.email.value, replyto: f.email.value, message: f.msg.value })
-      });
-      data = await res.json();
-      if (!res.ok || !data.success) throw new Error(data.message || "Send failed");
-    } else {                                            // FormSubmit (no key needed)
-      res = await fetch(`https://formsubmit.co/ajax/${CONFIG.email}`, {
-        method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ name: f.name.value, email: f.email.value, message: f.msg.value,
-          _subject: subject, _template: "table", _captcha: "false" })
-      });
-      data = await res.json();
-      if (!res.ok || !(data.success === true || data.success === "true")) throw new Error(data.message || "Send failed");
+  const statusEl = $("#status"), sendBtn = $("#send");
+  const field = n => form.elements.namedItem(n);
+  const inputs = { name: field("name"), msg: field("msg") };
+  const service = field("service");
+  const waReady = /^\d{10,15}$/.test(CONFIG.whatsapp) && !/0{8,}$/.test(CONFIG.whatsapp);
+
+  const clean = s => String(s).replace(/[\r\t]+/g, " ").replace(/ {2,}/g, " ").trim();
+
+  const copyText = async text => {
+    try { await navigator.clipboard.writeText(text); return true; } catch (_) {}
+    try {
+      const t = document.createElement("textarea");
+      t.value = text; t.setAttribute("readonly", "");
+      t.style.cssText = "position:fixed;opacity:0;top:0;left:0";
+      document.body.append(t); t.select();
+      const ok = document.execCommand("copy"); t.remove(); return ok;
+    } catch (_) { return false; }
+  };
+
+  const setStatus = (text, kind, extras) => {
+    statusEl.textContent = text;
+    statusEl.dataset.kind = kind || "";
+    if (extras && extras.length) {
+      const wrap = document.createElement("span");
+      wrap.className = "status-links";
+      extras.forEach((node, i) => { if (i) wrap.append(" · "); wrap.append(node); });
+      statusEl.append(wrap);
     }
-    f.reset();
-    setStatus("Thanks, your message is sent. I'll reply to your email soon.", "ok");
-  } catch (err) {
-    setStatus("The message could not be sent right now.", "error", fallbackLinks(f));
-  } finally {
-    send.disabled = false; send.textContent = "Send message";
-  }
-});
+  };
+
+  const buildMessage = v =>
+    `Hi Sachin, I'm ${v.name}.\nI'm looking for: ${v.service}.\n\n${v.msg}`;
+
+  const waUrl = text => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
+
+  Object.values(inputs).forEach(i => i.addEventListener("input", () => i.removeAttribute("aria-invalid")));
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const v = {
+      name: clean(inputs.name.value),
+      service: service ? service.value : "a project",
+      msg: inputs.msg.value.trim()
+    };
+
+    const errs = {};
+    if (v.name.length < 2) errs.name = "Please enter your name.";
+    if (v.msg.length < 10) errs.msg = "Please add a few words about what you need (at least 10 characters).";
+    Object.entries(inputs).forEach(([k, i]) => {
+      if (errs[k]) i.setAttribute("aria-invalid", "true"); else i.removeAttribute("aria-invalid");
+    });
+    const bad = ["name", "msg"].find(k => errs[k]);
+    if (bad) { setStatus(errs[bad], "error"); inputs[bad].focus(); return; }
+
+    if (!waReady) {
+      setStatus("Setup needed: put your WhatsApp number in CONFIG.whatsapp at the top of script.js.", "error");
+      return;
+    }
+
+    const text = buildMessage(v), url = waUrl(text);
+
+    // A real link click inside the submit gesture is not blocked as a pop-up
+    const a = document.createElement("a");
+    a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    document.body.append(a); a.click(); a.remove();
+
+    const again = document.createElement("a");
+    again.href = url; again.target = "_blank"; again.rel = "noopener noreferrer";
+    again.textContent = "tap here to open WhatsApp";
+    const copy = document.createElement("button");
+    copy.type = "button"; copy.textContent = "copy the message";
+    copy.addEventListener("click", async () => {
+      copy.textContent = (await copyText(text)) ? "message copied" : "copy failed";
+    });
+    setStatus("Opening WhatsApp with your message ready. Press Send there. If nothing opened,", "ok", [again, copy]);
+  });
+})();
 
 /* ---------- Floating WhatsApp button appears after the hero ---------- */
 const fab = $("#waFab");
